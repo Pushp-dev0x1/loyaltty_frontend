@@ -1,0 +1,154 @@
+.campaign-email-edit {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background-color: #f6f6f7;
+}
+
+.email-fields {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
+}
+
+.editable-fields h3,
+.link-section h3 {
+  color: #040869;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.email-input,
+.email-textarea,
+.custom-link-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid #d0d5dd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease;
+}
+
+.email-input:focus,
+.email-textarea:focus,
+.custom-link-input:focus {
+  border-color: #175CD3;
+  outline: none;
+}
+
+.email-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.link-buttons {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.link-btn,
+.active-link-btn {
+  padding: 10px 20px;
+  border: 2px solid #040869;
+  background-color: #ffffff;
+  color: #040869;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.active-link-btn {
+  background-color: #040869;
+  color: #ffffff;
+}
+
+.link-btn:first-child,
+.active-link-btn:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.link-btn:last-child,
+.active-link-btn:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.link-display {
+  padding: 10px;
+  background-color: #f3f4f6;
+  border: 2px solid #d0d5dd;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #f6f6f7;
+  border: 2px solid #040869;
+  border-radius: 6px;
+  color: #040869;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.copy-btn:hover {
+  background-color: #040869;
+  color: #ffffff;
+}
+
+.copy-btn span {
+  margin-left: 8px;
+}
+
+/* Mobile-specific styles */
+@media screen and (max-width: 767px) {
+  .campaign-email-edit {
+    padding: 10px;
+  }
+
+  .email-fields {
+    padding: 15px;
+  }
+
+  .editable-fields h3,
+  .link-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .email-input,
+  .email-textarea,
+  .custom-link-input {
+    font-size: 0.9rem;
+  }
+
+  .link-buttons {
+    flex-direction: column;
+  }
+
+  .link-btn,
+  .active-link-btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .link-btn:first-child,
+  .active-link-btn:first-child,
+  .link-btn:last-child,
+  .active-link-btn:last-child {
+    border-radius: 6px;
+  }
+
+  .copy-btn {
+    width: 100%;
+  }
+}

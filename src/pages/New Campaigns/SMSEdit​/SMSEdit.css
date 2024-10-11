@@ -1,0 +1,221 @@
+.campaign-sms-right {
+    max-width: 414px;
+    margin: 20px auto;
+}
+
+.campaign-sms-right .sms-fields .non-editable-fields {
+    position: relative;
+}
+
+.campaign-sms-right .sms-fields .textarea-component {
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    background: #F6F6F7;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.campaign-sms-right .sms-fields .textarea-component .textarea-heading {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+img,
+svg {
+    vertical-align: middle;
+}
+
+.campaign-sms-right .sms-fields .textarea-component h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #040869;
+    line-height: 26px;
+    font-weight: 600;
+}
+
+.campaign-sms-right .sms-fields .textarea-component .sms-length {
+    font-size: 14px;
+    color: #697777;
+    line-height: 20px;
+    margin: 4px 0 12px;
+}
+
+.campaign-sms-right .sms-fields .textarea-component .textarea {
+    font-size: 16px;
+    color: #182020;
+    line-height: 24px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.campaign-sms-right .sms-fields .textarea-component .textarea input {
+    margin: 0;
+    border: none;
+    outline: none;
+    max-width: 100%;
+    font-size: 16px;
+    padding: 4px;
+    color: #040869;
+    line-height: 24px;
+    background: #FFFFFF;
+    border-bottom: 2px solid #040869;
+    transition: border-color 0.3s ease;
+}
+
+.campaign-sms-right .sms-fields .textarea-component .textarea input:focus {
+    border-bottom-color: #060c92;
+}
+
+.campaign-sms-right .sms-fields .textarea-component .textarea span {
+    padding: 6px;
+    margin: 0 0 0 4px;
+    line-height: 36px;
+    background: #FFFFFF;
+    border-bottom: 2px solid #040869;
+    transition: background-color 0.3s ease;
+}
+
+.campaign-sms-right .sms-fields .textarea-component .textarea span:hover {
+    background-color: #F6F6F7;
+}
+
+.campaign-sms-right .sms-fields .textarea-component .why-link-button {
+    font-size: 14px;
+    margin: 12px 0 0;
+    color: #040869;
+    cursor: pointer;
+    line-height: 18px;
+    text-decoration: underline;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.campaign-sms-right .sms-fields .textarea-component .why-link-button:hover {
+    color: #060c92;
+}
+
+.campaign-sms-right .sms-fields .editDivs {
+    border-radius: 10px;
+    margin-bottom: 16px;
+    background: #F6F6F7;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.campaign-sms-right .sms-fields .editDivs h3 {
+    font-size: 18px;
+    line-height: 24px;
+    color: #040869;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.campaign-sms-right .sms-fields .editDivs .primary-button-group {
+    border: none;
+    margin: 20px 0 12px;
+    background-color: #E5E7EB;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    overflow: hidden;
+}
+
+.campaign-sms-right .sms-fields .editDivs .primary-button-group .custom-btn,
+.campaign-sms-right .sms-fields .editDivs .primary-button-group .active-custom-btn {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #040869;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.campaign-sms-right .sms-fields .editDivs .primary-button-group .active-custom-btn {
+    background-color: #040869;
+    color: #FFFFFF;
+}
+
+.campaign-sms-right .sms-fields .editDivs .primary-button-group .custom-btn:hover {
+    background-color: rgba(4, 8, 105, 0.1);
+}
+
+.campaign-sms-right .sms-fields .editDivs .link {
+    font-size: 16px;
+    color: #040869;
+    line-height: 24px;
+    margin: 12px 0 6px;
+    font-weight: 600;
+}
+
+.campaign-sms-right .sms-fields .editDivs h5 {
+    font-size: 14px;
+    line-height: 20px;
+    color: #697777;
+    margin-bottom: 12px;
+}
+
+.campaign-sms-right .sms-fields .editDivs .copy-btn {
+    cursor: pointer;
+    margin: 6px 0 0;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    background-color: #F6F6F7;
+    border: 1px solid #040869;
+    border-radius: 8px;
+    color: #040869;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.campaign-sms-right .sms-fields .editDivs .copy-btn:hover {
+    background-color: #040869;
+    color: #FFFFFF;
+}
+
+.campaign-sms-right .sms-fields .editDivs .copy-btn p {
+    margin-left: 6px;
+}
+
+.campaign-sms-right .sms-fields .editDivs .custom-link-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.campaign-sms-right .sms-fields .editDivs .custom-link-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #040869;
+    background-color: #FFFFFF;
+    border: 2px solid #040869;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.campaign-sms-right .sms-fields .editDivs .custom-link-input:focus {
+    border-color: #060c92;
+    box-shadow: 0 0 0 2px rgba(4, 8, 105, 0.2);
+}
+
+.campaign-sms-right .sms-fields .editDivs .custom-link-input::placeholder {
+    color: #697777;
+}
+
+.campaign-sms-right .sms-fields .editDivs .custom-link-input:hover {
+    border-color: #060c92;
+}

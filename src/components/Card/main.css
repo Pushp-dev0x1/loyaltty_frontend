@@ -1,0 +1,40 @@
+/* .mainContainer {
+    position: relative;
+}
+
+.theCard {
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+}
+
+.theCard:hover{
+    transform: rotateY(180deg);
+}
+
+.theFront {
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.theBack {
+    position: absolute;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+} */
+/* 
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+} */
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}

@@ -1,0 +1,212 @@
+/* Mobile-first styles */
+.campaign-theme-right {
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 0 10px;
+}
+
+.campaign-theme-right .editDivs {
+    padding: 16px;
+    border-radius: 8px;
+    background: #F6F6F7;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.campaign-theme-right .editDivs h3 {
+    margin: 0 0 12px;
+    font-size: 18px;
+    color: #040869;
+    line-height: 22px;
+    font-weight: 600;
+}
+
+.campaign-theme-right .upload-btn {
+    width: 100%;
+    margin: 12px 0;
+    cursor: pointer;
+    min-height: 40px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid #040869;
+    transition: all 0.3s ease;
+}
+
+.campaign-theme-right .upload-btn:hover {
+    background: rgba(4, 8, 105, 0.05);
+}
+
+.campaign-theme-right .upload-btn p {
+    margin: 0 8px;
+    font-size: 14px;
+    color: #040869;
+    line-height: 18px;
+    font-weight: 500;
+}
+
+.campaign-theme-right .editDivs .hint-text {
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: #697777;
+    line-height: 16px;
+}
+
+.campaign-theme-right .color-div {
+    display: flex;
+    padding: 12px 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.primary-color-picker-div .primary-color-picker {
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #040869, 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.primary-color-picker-div .primary-color-picker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.primary-color-picker-div .primary-color-picker::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.primary-color-picker-div .primary-color-picker::-moz-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.primary-color-picker-div .primary-color-picker:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #040869, 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.common-banner-image-card {
+    padding: 16px;
+    position: relative;
+    border-radius: 8px;
+    background: #F6F6F7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.common-banner-image-card .title {
+    margin: 0 0 6px;
+    color: #040869;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.common-banner-image-card .subtitle {
+    margin: 0 0 12px;
+    color: #697777;
+    font-size: 14px;
+}
+
+.sb-button {
+    gap: 6px;
+    border: none;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.sb-button--secondary {
+    color: #040869;
+    background: #ffffff;
+    border: 1px solid #040869;
+}
+
+.sb-button--secondary:hover {
+    background: rgba(4, 8, 105, 0.05);
+}
+
+.sb-button--full-width {
+    width: 100%;
+}
+
+.sb-button--sm {
+    padding: 10px 14px;
+    font-size: 14px;
+}
+
+.common-banner-image-card .divider {
+    margin: 20px 0;
+    background-image: linear-gradient(90deg, #DCF8FF 50%, #F6F6F7 50%);
+    height: 1px;
+    width: 100%;
+    background-size: 10px;
+}
+
+/* Tablet and desktop styles */
+@media (min-width: 768px) {
+    .campaign-theme-right {
+        max-width: 414px;
+        margin: 40px auto;
+        padding: 0;
+    }
+
+    .campaign-theme-right .editDivs {
+        padding: 24px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .campaign-theme-right .editDivs h3,
+    .common-banner-image-card .title {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .campaign-theme-right .upload-btn {
+        min-height: 46px;
+        border-radius: 8px;
+    }
+
+    .campaign-theme-right .color-div {
+        padding: 16px 24px;
+    }
+
+    .primary-color-picker-div .primary-color-picker {
+        width: 30px;
+        height: 30px;
+    }
+
+    .common-banner-image-card {
+        padding: 24px;
+        border-radius: 10px;
+    }
+
+    .sb-button--sm {
+        padding: 12px 16px;
+    }
+
+    .common-banner-image-card .divider {
+        height: 2px;
+        background-size: 12px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .campaign-theme-right .editDivs h3,
+    .common-banner-image-card .title {
+        font-size: 22px;
+    }
+}
