@@ -51,6 +51,18 @@ const templateService = createApi({
                 method: 'GET'
             })
         }),
+        getAllWhatsAppTemplates: builder.query({
+            query: () => ({
+                url: '/getall/whatsappTemplates',
+                method: 'GET'
+            })
+        }),
+        getAllSMSTemplates: builder.query({
+            query: () => ({
+                url: '/getall/smsTemplates',
+                method: 'GET'
+            })
+        }),
     })
 });
 
@@ -60,7 +72,9 @@ export const {
     useCreateTemplateMutation,
     useUpdateTemplateStatusMutation,
     useGetTemplatesByCategoryQuery,
-    useGetTemplatesByRewardTypeQuery
+    useGetTemplatesByRewardTypeQuery,
+    useGetAllWhatsAppTemplatesQuery,
+    useGetAllSMSTemplatesQuery
 } = templateService;
 
 export default templateService;

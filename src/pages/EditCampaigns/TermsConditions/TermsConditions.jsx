@@ -38,13 +38,18 @@ const TermsConditions = ({ formData, handlecontactChange, maildata, handleInputC
   }, [isDropdownOpen]);
 
   const toggleOption = (option) => {
-    const newOptions = selectedOptions.includes(option)
+    if(option == "Min purchase required." && selectedOptions.includes(option)){
+
+    }
+    let newOptions = selectedOptions.includes(option)
       ? selectedOptions.filter((o) => o !== option)
       : [...selectedOptions, option];
 
       if (newOptions.includes("Min purchase required.")) {
         setshow_Minimumquantity(true);  // Option is added
       } else {
+         newOptions = newOptions.filter((o) => o !== option && !o.includes("Minimum Purchase Required"));
+      
         setshow_Minimumquantity(false);  // Option is removed
       }
     
@@ -63,7 +68,7 @@ const TermsConditions = ({ formData, handlecontactChange, maildata, handleInputC
 const [minimum_Amount, setminimum_Amount] = useState('0')
 const handleMinimumAmount = (e) => {
   const { value } = e.target;
-  setminimum_Amount(value);
+  
 
   console.log(selectedOptions, "selected one");
 
@@ -71,7 +76,7 @@ const handleMinimumAmount = (e) => {
   const minimumAmountMessage = `Minimum Purchase Required - $${value}`;
 
   // Determine if "Min purchase required." is already in selectedOptions
-  const minPurchaseRequired = "Min purchase required.";
+  const minPurchaseRequired = `Minimum Purchase Required - $${minimum_Amount}`;
   const hasMinPurchaseRequired = selectedOptions.includes(minPurchaseRequired);
 
   // Update options based on whether "Min purchase required." is included
@@ -86,12 +91,12 @@ const handleMinimumAmount = (e) => {
     );
   } else {
     // If it's not included, add it and the message
-    newOptions = [...selectedOptions, minPurchaseRequired, minimumAmountMessage];
+    newOptions = [...selectedOptions,  minimumAmountMessage];
   }
 
   // Set the updated options
   setSelectedOptions(newOptions);
-
+  setminimum_Amount(value);
   // Update the description with the new options
   const updatedDescription = newOptions.join('\n');
   handleInputChange("terms", updatedDescription);

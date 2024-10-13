@@ -43,6 +43,13 @@ const userService = createApi({
                 url: `/users/${id}`,
                 method: 'DELETE'
             })
+        }),
+        uploadBulkUsers: builder.mutation({
+            query: (file) => ({
+                url: '/uploadBulkUsers',
+                method: 'POST',
+                body: file
+            })
         })
     })
 });
@@ -52,7 +59,8 @@ export const {
     useGetUsersByMerchantQuery,
     useCreateUserMutation,
     useGetUserByIdQuery,
-    useDeleteUserMutation
+    useDeleteUserMutation,
+    useUploadBulkUsersMutation
 } = userService;
 
 export default userService;

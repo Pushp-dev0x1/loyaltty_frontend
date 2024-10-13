@@ -38,6 +38,7 @@ const EditCampaign = () => {
   const navigate = useNavigate();
   const [campaignId, setCampaignId] = useState(null);
   const [selected_Whatsapp, setselected_Whatsapp] = useState(null);
+  const [selectedSMS, setselectedSMS] = useState(null)
   const [createCampaign] = useCreateCampaignMutation();
   const [updateCampaign] = useUpdateCampaignMutation();
   const [finalizeCampaign] = useFinalizeCampaignMutation();
@@ -207,7 +208,7 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
   const whatsappContent = selected_Whatsapp
     ? selected_Whatsapp
     : getPlatformContent("whatsapp");
-  const smsContent = getPlatformContent("sms");
+  const smsContent = selectedSMS ? selectedSMS: getPlatformContent("sms");
 
   const emailContent = getPlatformContent("email");
 
@@ -399,6 +400,8 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
           <SMSEdit
             content={smsContent.content}
             parameters={smsContent.parameters}
+            selected_SMS={selectedSMS}
+            setselected_SMS={setselectedSMS}
             main_url={main_url}
             onInputChange={(paramIndex, value) =>
               {handleInputChange(smsContent.platformId._id, paramIndex, value)
@@ -464,6 +467,22 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
     return estimatedCost.toFixed(2);
   };
 
+  const calculateEachCost = () => {
+    let platformCosts = {};
+  
+    templatedata.data.platformContents.forEach((platform) => {
+      if (checkedPlatforms[platform.platformId.type]) {
+        const price = parseFloat(platform.price.$numberDecimal);
+        const cost = price * formState.users.length;
+  
+        // Store the cost for each platform type
+        platformCosts[platform.platformId.type] = cost.toFixed(2);
+      }
+    });
+  
+    return platformCosts;
+  };
+
   const renderPreview = () => {
     if (currentStep >= 1 && currentStep <= steps.length - 2) {
       return (
@@ -495,6 +514,7 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
             setCheckedPlatforms={setCheckedPlatforms}
             templatedata={templatedata}
             estimatedCost={calculateEstimatedCost}
+            eachPlatformCost={calculateEachCost}
           />
         </aside>
       );

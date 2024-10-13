@@ -21,6 +21,8 @@ import { styled } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useNavigate, useLocation } from 'react-router-dom';
+import userService, { useCreateUserMutation, useUploadBulkUsersMutation } from '../../store/services/userService';
+import { ArrowLeftCircle } from 'lucide-react';
 
 const validationSchema = yup.object().shape({
   userName: yup
@@ -88,7 +90,6 @@ const theme = createTheme({
     },
   },
 });
-
 const AddUsers = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
@@ -97,37 +98,75 @@ const AddUsers = () => {
   });
   const navigate = useNavigate();
   const location = useLocation();
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadBulkUsers] = useUploadBulkUsersMutation();
+  const [createUser] = useCreateUserMutation();
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      // Simulating API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
       // Create a new user object
       const newUser = {
-        _id: Date.now().toString(), // Generate a temporary ID
+        merchantId:"66b2858654354cd7467e5e7c",
         username: data.userName,
         phoneNumber: data.phoneNumber,
-        email: data.email
+        mail: data.email
       };
 
-      // Get the existing users from the location state or initialize an empty array
-      const existingUsers = location.state?.users || [];
+      // Call the API to create the user
+      const response = await createUser(newUser).unwrap();
 
-      // Add the new user to the existing users
-      const updatedUsers = [...existingUsers, newUser];
 
       // Navigate back to TargetCustomers and pass the updated users data
-      navigate('/editcamp/:id', { state: { users: updatedUsers } });
-      
-      setSnackbar({ open: true, message: 'User added successfully!', severity: 'success' });
+      // navigate('/editcamp/:id', { state: { users: updatedUsers } });
+      if(response){
+
+        setSnackbar({ open: true, message: 'User added successfully!', severity: 'success' });
+      }
       reset();
     } catch (error) {
       console.error('Error adding user:', error);
       setSnackbar({ open: true, message: 'Error adding user. Please try again.', severity: 'error' });
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleFileChange = (event) => {
+    console.warn("ok ok ok ",event.target.files[0])
+    if (event.target.files && event.target.files[0]) {
+      setSelectedFile(event.target.files[0]);
+      handleUploadBulkUsers(event.target.files[0])
+    }
+  };
+
+  const handleUploadBulkUsers = async (selectedFile) => {
+    if (!selectedFile) {
+      alert('Please select a file to upload.');
+      return;
+    }
+
+    if (selectedFile.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+      alert('Please upload an Excel file.');
+      return;
+    }
+
+    if (!window.confirm('Are you sure you want to upload bulk user data?')) {
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedFile, selectedFile.name);
+      formData.append('merchantId', '66b2858654354cd7467e5e7c');
+      const response = await uploadBulkUsers(
+        formData
+      ).unwrap();
+
+      alert(`${response.message}`);
+    } catch (error) {
+      console.error('Error uploading bulk user data:', error);
+      alert('Error uploading bulk user data. Please try again.');
     }
   };
 
@@ -140,6 +179,13 @@ const AddUsers = () => {
 
   return (
     <ThemeProvider theme={theme}>
+       <button 
+        onClick={() => navigate(-1)}
+        className="absolute top-4 left-4 flex items-center text-[#070C4E] hover:text-[#070C4E]/80"
+      >
+        <ArrowLeftCircle size={24} className="mr-2" />
+        Back
+      </button>
       <Container component="main" maxWidth="md">
         <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
           <Grid item xs={12} sm={10} md={8}>
@@ -211,6 +257,33 @@ const AddUsers = () => {
                     )}
                   </SubmitButton>
                 </StyledForm>
+                <input
+  type="file"
+  accept=".xlsx"
+  onChange={(e) => {console.log("hey eree");handleFileChange(e)}}
+  style={{ display: 'none' }}
+  id="upload-bulk-users-file"
+/>
+<label htmlFor="upload-bulk-users-file">
+  <Button
+    variant="contained"
+    color="primary"
+    component="span"
+    sx={{ mt: 2 }}
+  >
+    Upload Bulk Users
+  </Button>
+</label>
+
+                <a
+                  href="http://64.227.154.213:5500/samples/UsersampleSheet.xlsx"
+                  download
+                  style={{ textDecoration: 'none', marginTop: '10px', display: 'inline-block' }}
+                >
+                  <Button variant="text" color="primary">
+                    Download Sample Excel Data
+                  </Button>
+                </a>
               </Box>
             </Paper>
           </Grid>

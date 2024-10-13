@@ -25,13 +25,12 @@ const ToggleSwitch = ({ channel, isChecked, onChange, data,checkedPlatforms,hand
     </label>
   </th>
 );
-
 const RefillCreditsPopup = ({ isOpen, onClose }) => {
   const [doPayment, response] = useSendPaymentMutation();
   const [selectedChannels, setSelectedChannels] = useState({
-    SMS: true,
-    Email: true,
-    Whatsapp: true,
+    SMS: { selected: true, price: 20, credits: 100 },
+    Email: { selected: true, price: 25, credits: 250 },
+    Whatsapp: { selected: true, price: 50, credits: 300 }, // Adjusted credits for $50 to 300
   });
 
   useEffect(() => {
@@ -43,8 +42,27 @@ const RefillCreditsPopup = ({ isOpen, onClose }) => {
   const handleToggle = (channel) => {
     setSelectedChannels((prev) => ({
       ...prev,
-      [channel]: !prev[channel],
+      [channel]: { ...prev[channel], selected: !prev[channel].selected },
     }));
+  };
+
+  const handleCustomCreditChange = (channel, value) => {
+    // Adjusting credits based on price to provide more benefits for higher prices
+    const adjustedCredits = value < 50 ? value * 5 : value * 6; // For $50 and above, credits are calculated at a higher rate
+    setSelectedChannels((prev) => ({
+      ...prev,
+      [channel]: { ...prev[channel], price: Number(value), credits: adjustedCredits },
+    }));
+  };
+
+  const calculateTotal = () => {
+    let total = 0;
+    Object.values(selectedChannels).forEach((channel) => {
+      if (channel.selected) {
+        total += channel.price;
+      }
+    });
+    return total;
   };
 
   if (!isOpen) return null;
@@ -88,19 +106,19 @@ const RefillCreditsPopup = ({ isOpen, onClose }) => {
                 </span>
                 <div
                   className={`w-12 h-6 ${
-                    selectedChannels[channel] ? "bg-[#040869]" : "bg-gray-300"
+                    selectedChannels[channel].selected ? "bg-[#040869]" : "bg-gray-300"
                   } rounded-full relative cursor-pointer`}
                   onClick={() => handleToggle(channel)}
                 >
                   <div
                     className={`absolute ${
-                      selectedChannels[channel] ? "right-1" : "left-1"
+                      selectedChannels[channel].selected ? "right-1" : "left-1"
                     } top-1 w-4 h-4 bg-white rounded-full transition-all duration-300`}
                   ></div>
                 </div>
               </div>
-              {selectedChannels[channel] &&
-                [25, 25, 25, 25].map((value, index) => (
+              {selectedChannels[channel].selected &&
+                [20, 25, 50, 100].map((price, index) => (
                   <div
                     key={index}
                     className="flex justify-between items-center mb-2"
@@ -108,15 +126,21 @@ const RefillCreditsPopup = ({ isOpen, onClose }) => {
                     <label className="flex items-center">
                       <input
                         type="radio"
-                        name={`${channel}-credits`}
+                        name={`${channel}-price`}
+                        value={price}
                         className="mr-2"
+                        checked={selectedChannels[channel].price === price}
+                        onChange={() => setSelectedChannels((prev) => ({
+                          ...prev,
+                          [channel]: { ...prev[channel], price, credits: price < 50 ? price * 5 : price * 6 }, // Adjusting credits based on price
+                        }))}
                       />
-                      <span>{value}k</span>
+                      <span>{price}$</span>
                     </label>
-                    <span className="text-[#007E7D]">$ 20.00</span>
+                    <span className="text-[#007E7D]">{price < 50 ? price * 5 : price * 6} credits</span> {/* Adjusting credits display based on price */}
                   </div>
                 ))}
-              {selectedChannels[channel] && (
+              {selectedChannels[channel].selected && (
                 <>
                   <p className="text-xs text-gray-900">Credits</p>
                   <div className="mt-1">
@@ -125,6 +149,7 @@ const RefillCreditsPopup = ({ isOpen, onClose }) => {
                         type="number"
                         placeholder="Enter numbers of credit"
                         className="w-full text-sm p-2 rounded-full border border-gray-300 focus:outline-none bg-transparent"
+                        onChange={(e) => handleCustomCreditChange(channel, e.target.value)}
                       />
                     </div>
                   </div>
@@ -135,13 +160,13 @@ const RefillCreditsPopup = ({ isOpen, onClose }) => {
         </div>
         <div className="flex justify-between items-center">
           <div>
-            <p className="font-semibold">Total <span className="text-[#007E7D]">$20.00</span></p>
+            <p className="font-semibold">Total <span className="text-[#007E7D]">$ {calculateTotal()}.00</span></p>
             <p className="text-xs text-gray-500">Price excludes GST</p>
           </div>
           <button
             onClick={() =>
               doPayment({
-                amount: 20.0,
+                amount: calculateTotal(),
                 merchantId: "66b2858654354cd7467e5e7c",
               })
             }
@@ -161,10 +186,10 @@ const RefillCreditsPopup = ({ isOpen, onClose }) => {
   );
 };
 
-const Budget = ({ onInputChange, estimatedCost,users,checkedPlatforms,setCheckedPlatforms,templatedata,setStep,currentStep }) => {
+const Budget = ({ onInputChange, estimatedCost,users,checkedPlatforms,setCheckedPlatforms,templatedata,setStep,currentStep,eachPlatformCost }) => {
   const [send_time, setSendTime] = useState("now");
   const [date, setDate] = useState(new Date());
-
+console.log(eachPlatformCost().sms,"each cost")
 
 const [tempDisabledData, setTempDisabledData] = useState({});
   const [time, setTime] = useState("10:00");
@@ -177,17 +202,17 @@ const [tempDisabledData, setTempDisabledData] = useState({});
       name:"email"
     },
     Usage: {
-      available: 500,
-      toBeUsed: 200,
-      balance: 300,
+      available: eachPlatformCost().email,
+      toBeUsed: eachPlatformCost().sms,
+      balance: eachPlatformCost().whatsapp,
       name:"sms",
       icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/ccfdca0b8f4a8882d438a4bcfb7d0977e85429c0e35245f44a752a0cc95cad03?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f",
     },
     Balance: {
-      available: 150,
-      toBeUsed: 150,
+      available: 1000 - eachPlatformCost().email,
+      toBeUsed: 800 - eachPlatformCost().sms,
+      balance: 200 - eachPlatformCost().whatsapp,
       name:"whatsapp",
-      balance: 0,
       icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/eedee36cff5fc292dceae6980b1fda5b74659ce945c0feb2cad04c718988ae92?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f",
     },
   });

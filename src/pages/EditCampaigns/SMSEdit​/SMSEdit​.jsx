@@ -4,64 +4,19 @@ import "./SMSEdit.css";
 
 import { BiSolidEdit } from "react-icons/bi";
 import WhatsappTemplates from "../../../components/WhatsappTemplates/WhatsappTemplates";
+import { useGetAllSMSTemplatesQuery } from "../../../store/services/templateService";
 
-const whatsappTemplatesData = [
-  {
-    username: "John Doe",
-    lastseen: "Today at 10:30 AM",
-    message: "Hello! Welcome to our service. How can I assist you today?",
-    time: "11:45 AM",
-    profilepic: "https://randomuser.me/api/portraits/men/1.jpg",
-  },
-  {
-    username: "Jane Smith",
-    lastseen: "Yesterday at 8:45 PM",
-    message:
-      "We appreciate your business. Here's a special offer just for you!",
-    time: "9:00 AM",
-    profilepic: "https://randomuser.me/api/portraits/women/2.jpg",
-  },
-  {
-    username: "Alex Johnson",
-    lastseen: "Online",
-    message: "Don't miss out on our upcoming sale! Save the date: [sale_date]",
-    time: "3:20 PM",
-    profilepic: "https://randomuser.me/api/portraits/men/3.jpg",
-  },
-  {
-    username: "Emily Brown",
-    lastseen: "Today at 2:15 PM",
-    message: "Thank you for your recent purchase! How was your experience?",
-    time: "4:30 PM",
-    profilepic: "https://randomuser.me/api/portraits/women/4.jpg",
-  },
-  {
-    username: "Michael Lee",
-    lastseen: "Yesterday at 11:20 AM",
-    message:
-      "Exciting news! We've just launched our new product line. Check it out!",
-    time: "10:00 AM",
-    profilepic: "https://randomuser.me/api/portraits/men/5.jpg",
-  },
-  {
-    username: "Sarah Wilson",
-    lastseen: "Online",
-    message:
-      "Your loyalty points are about to expire. Use them before [expiry_date]!",
-    time: "2:45 PM",
-    profilepic: "https://randomuser.me/api/portraits/women/6.jpg",
-  },
-  {
-    username: "David Taylor",
-    lastseen: "Today at 9:00 AM",
-    message: "We've missed you! Here's a special comeback offer just for you.",
-    time: "1:15 PM",
-    profilepic: "https://randomuser.me/api/portraits/men/7.jpg",
-  },
-];
 
-const SMSEdit = ({ content, parameters, onInputChange, main_url }) => {
+const SMSEdit = ({ content, parameters, onInputChange, main_url,
+  selected_SMS,
+  setselected_SMS,
+
+ }) => {
   const [activeLink, setActiveLink] = useState("loyaltty");
+  const { data: templatedata, isLoading: isblogsloading } =
+  useGetAllSMSTemplatesQuery();
+  const whatsappTemplatesData = templatedata?.data
+  
   const [customLink, setCustomLink] = useState("");
   const [messageContent, setMessageContent] = useState({
     storeName: "Pizza Mania",
@@ -152,6 +107,26 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url }) => {
       timeoutRef.current = setTimeout(() => setCopyStatus("idle"), 2000);
     }
   };
+
+
+
+
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+
+  // Function to handle template selection
+  const handleTemplateSelect = (template) => {
+    setSelectedTemplate(template);
+  };
+
+  // Function to handle confirm action
+  const handleConfirm = () => {
+    if (selectedTemplate) {
+      setselected_SMS(selectedTemplate); // Update the selected template
+      toggleModal(); // Close the modal
+      setSelectedTemplate(null);
+    }
+  };
+
 
   return (
     <>
@@ -345,6 +320,14 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url }) => {
               <h2 className="text-3xl font-semibold text-gray-800">
                 SMS Templates
               </h2>
+              {selectedTemplate && (
+                <button
+                  onClick={handleConfirm}
+                  className="flex p-1 mt-5 md:mt-0 text-xl items-center justify-center text-white border-solid bg-[#040869] border-[2.008px] border-black border-opacity-10 min-h-[52px] rounded-[32.131px] w-full md:w-[200px] md:max-w-[364px] md:absolute md:bottom-5 md:left-1/2 md:transform md:-translate-x-1/2"
+                >
+                  Select
+                </button>
+              )}
             </div>
             <div className="p-8 overflow-y-auto" style={{ maxHeight: "80vh" }}>
               <div
@@ -354,7 +337,7 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url }) => {
                 }}
               >
                 {whatsappTemplatesData.map((template, index) => (
-                  <WhatsappTemplates key={index} {...template} />
+                  <WhatsappTemplates key={index}  onClick={() => handleTemplateSelect(template)} {...template} />
                 ))}
               </div>
             </div>
