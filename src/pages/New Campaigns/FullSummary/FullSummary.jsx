@@ -210,7 +210,7 @@ const FullSummary = () => {
           <div className="flex justify-between mt-4">
             <button
               className="border-2 border-[#040869] rounded-lg py-2 px-3 md:px-4 text-[#040869] font-semibold text-sm md:text-base hover:bg-[#040869] hover:text-white transition-colors duration-300"
-              onClick={() => navigate("/SetupNewCampaign")}
+              onClick={() => navigate("/setup-new-campaign")}
             >
               Back
             </button>

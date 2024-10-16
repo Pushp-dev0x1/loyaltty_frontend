@@ -38,7 +38,7 @@ const WhatsAppEdit = ({ content, parameters, onInputChange,main_url }) => {
 
   const copyToClipboard = async () => {
     const linkToCopy = activeLink === "loyaltty" 
-      ? `64.227.154.213:4040/lp/${main_url}`
+      ? `143.110.252.166:4040/lp/${main_url}`
       : customLink;
     
     try {
@@ -118,7 +118,7 @@ const WhatsAppEdit = ({ content, parameters, onInputChange,main_url }) => {
                 </button>
               </div>
               {activeLink === "loyaltty" ? (
-                <div className="link">64.227.154.213:4040/lp/{main_url}</div>
+                <div className="link">143.110.252.166:4040/lp/{main_url}</div>
               ) : (
                 <div className="custom-link-wrapper">
                   <input 

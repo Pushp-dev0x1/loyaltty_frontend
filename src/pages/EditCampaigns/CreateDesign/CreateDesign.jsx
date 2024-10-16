@@ -3,7 +3,7 @@ import "./CreateDesign.css";
 import { Upload, Copy, ChevronDown, ChevronUp, Check } from "lucide-react";
 import { useUploadImageMutation } from "../../../store/services/uploadService";
 
-const CreateDesign = ({ formData, handleInputChange, main_url,setmain_url }) => {
+const CreateDesign = ({ formData, handleInputChange, main_url, setmain_url }) => {
   const [uploadImage] = useUploadImageMutation();
   const contentRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -77,48 +77,50 @@ const CreateDesign = ({ formData, handleInputChange, main_url,setmain_url }) => 
 
   return (
     <>
-      <div className=" p-4 md:p-0 max-w-full">
-        <div className="flex mb-6 space-x-2">
-          <div className="w-1/2 p-2 border border-gray-300 rounded-lg flex items-center justify-between">
+      <div className="p-4 md:p-0 max-w-full">
+        {/* Color selection section */}
+        <div className="flex flex-col sm:flex-row mb-6 space-y-4 sm:space-y-0 sm:space-x-2">
+          <div className="w-full sm:w-1/2 p-2 border border-gray-300 rounded-lg flex items-center justify-between">
             <h3 className="text-sm font-semibold">Theme color</h3>
             <div className="primary-color-picker-div flex items-center">
               <input
                 name="themeColor"
                 type="color"
-                className="primary-color-picker w-12 h-12 mr-3"
+                className="primary-color-picker w-8 h-8 sm:w-12 sm:h-12 mr-2 sm:mr-3"
                 value={formData.themeColor || "#FF5733"}
                 onChange={handleInputChange}
               />
-              <span className="text-sm">
+              <span className="text-xs sm:text-sm">
                 {formData.themeColor || "#FF5733"}
               </span>
             </div>
           </div>
-          <div className="w-1/2 p-2 border border-gray-300 rounded-lg flex items-center justify-between">
+          <div className="w-full sm:w-1/2 p-2 border border-gray-300 rounded-lg flex items-center justify-between">
             <h3 className="text-sm font-semibold">Text color</h3>
             <div className="primary-color-picker-div flex items-center">
               <input
                 name="textColor"
                 type="color"
-                className="primary-color-picker w-12 h-12 mr-3"
+                className="primary-color-picker w-8 h-8 sm:w-12 sm:h-12 mr-2 sm:mr-3"
                 value={formData.textColor || "#FFFFFF"}
                 onChange={handleInputChange}
               />
-              <span className="text-sm">{formData.textColor || "#FFFFFF"}</span>
+              <span className="text-xs sm:text-sm">{formData.textColor || "#FFFFFF"}</span>
             </div>
           </div>
         </div>
 
+        {/* Logo upload section */}
         <div className="mb-6">
-          <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Logo Image</h3>
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-2">Logo Image</h3>
           <div
-            className="border border-gray-300 rounded-full p-3 text-center w-full flex items-center justify-center cursor-pointer"
+            className="border border-gray-300 rounded-full p-2 sm:p-3 text-center w-full flex items-center justify-center cursor-pointer"
             onClick={() => document.getElementById("logo").click()}
           >
-            <Upload size={20} className="mr-2" />
-            <span className="text-sm">Drag & Drop Files Here</span>
-            <span className="text-sm text-gray-500 mx-1">&</span>
-            <span className="text-sm text-[#040869] ">Browse files</span>
+            <Upload size={16} className="mr-2 sm:mr-2" />
+            <span className="text-xs sm:text-sm">Drag & Drop Files Here</span>
+            <span className="text-xs sm:text-sm text-gray-500 mx-1">&</span>
+            <span className="text-xs sm:text-sm text-[#040869] ">Browse files</span>
             <input
               type="file"
               name="logo"
@@ -130,20 +132,21 @@ const CreateDesign = ({ formData, handleInputChange, main_url,setmain_url }) => 
           </div>
         </div>
 
+        {/* Banner upload section */}
         <div className="mb-6">
-          <h3 className="text-xl md:text-2xl font-bold text-gray-800">Banner Image</h3>
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">Banner Image</h3>
           <p className="text-xs text-gray-600 mb-2">
             Recommended size 512 x 512 px in JPG, PNG or SVG format up to max
             size of 5MB.
           </p>
           <div
-            className="border border-gray-300 rounded-full p-3 text-center w-full flex items-center justify-center cursor-pointer"
+            className="border border-gray-300 rounded-full p-2 sm:p-3 text-center w-full flex items-center justify-center cursor-pointer"
             onClick={() => document.getElementById("bannerImage").click()}
           >
-            <Upload size={20} className="mr-2" />
-            <span className="text-sm">Drag & Drop Files Here</span>
-            <span className="text-sm text-gray-500 mx-1">&</span>
-            <span className="text-sm text-[#040869]">Browse files</span>
+            <Upload size={16} className="mr-2 sm:mr-2" />
+            <span className="text-xs sm:text-sm">Drag & Drop Files Here</span>
+            <span className="text-xs sm:text-sm text-gray-500 mx-1">&</span>
+            <span className="text-xs sm:text-sm text-[#040869]">Browse files</span>
             <input
               type="file"
               name="bannerImage"
@@ -178,19 +181,18 @@ const CreateDesign = ({ formData, handleInputChange, main_url,setmain_url }) => 
           ))}
         </div>
 
+        {/* Campaign link section */}
         <div
           ref={contentRef}
-          className={`mt-4 md:mt-4 space-y-2 md:space-y-6 ${
-            isDropdownOpen ? "block" : "hidden"
-          } md:block`}
+          className={`mt-4 md:mt-4 space-y-2 md:space-y-6  md:block`}
         >
           <div className="mt-2">
-            <h3 className="text-2xl font-semibold mb-2 text-gray-800">
+            <h3 className="text-xl sm:text-2xl font-semibold mb-2 text-gray-800">
               Campaign link
             </h3>
             <div className="primary-button-group flex rounded-full bg-gray-100 p-1 border border-[#040869]">
               <button
-                className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-colors ${
+                className={`flex-1 py-1 sm:py-2 px-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium transition-colors ${
                   activeLink === "loyaltty"
                     ? "bg-[#040869] text-white shadow"
                     : "text-gray-500 hover:text-gray-700"
@@ -200,7 +202,7 @@ const CreateDesign = ({ formData, handleInputChange, main_url,setmain_url }) => 
                 Loyaltty Link
               </button>
               <button
-                className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-colors ${
+                className={`flex-1 py-1 sm:py-2 px-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium transition-colors ${
                   activeLink === "custom"
                     ? "bg-[#040869] text-white shadow"
                     : "text-gray-500 hover:text-gray-700"
@@ -210,10 +212,10 @@ const CreateDesign = ({ formData, handleInputChange, main_url,setmain_url }) => 
                 Custom Link
               </button>
             </div>
-            <div className="mt-4 flex items-center space-x-4">
+            <div className="mt-4 flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
               {activeLink === "loyaltty" ? (
-                <div className="flex-grow pl-4 bg-gray-100 rounded-full">
-                  <span className="text-sm font-medium">
+                <div className="w-full sm:flex-grow pl-4 bg-gray-100 rounded-full py-1 sm:py-2">
+                  <span className="text-xs sm:text-sm font-medium">
                     {main_url}
                   </span>
                 </div>
@@ -223,11 +225,11 @@ const CreateDesign = ({ formData, handleInputChange, main_url,setmain_url }) => 
                   value={customLink}
                   onChange={handleCustomLinkChange}
                   placeholder="Enter your custom link"
-                  className="flex-grow p-2 pl-4 border border-gray-300 rounded-full text-sm"
+                  className="w-full sm:flex-grow p-2 pl-4 border border-gray-300 rounded-full text-xs sm:text-sm"
                 />
               )}
               <button
-                className={`copy-btn p-2 rounded-full flex items-center justify-center transition-colors ${
+                className={`w-full sm:w-auto mt-2 sm:mt-0 copy-btn p-2 rounded-full flex items-center justify-center transition-colors ${
                   copyStatus === "copied"
                     ? "bg-green-500 text-white"
                     : copyStatus === "error"
@@ -237,19 +239,19 @@ const CreateDesign = ({ formData, handleInputChange, main_url,setmain_url }) => 
                 onClick={copyToClipboard}
                 disabled={copyStatus !== "idle"}
               >
-                {copyStatus === "idle" && <Copy size={16} className="mr-2" />}
+                {copyStatus === "idle" && <Copy size={14} className="mr-2" />}
                 {copyStatus === "copied" && (
-                  <Check size={16} className="mr-2" />
+                  <Check size={14} className="mr-2" />
                 )}
-                {copyStatus === "error" && <Copy size={16} className="mr-2" />}
-                <span className="text-sm font-medium">
+                {copyStatus === "error" && <Copy size={14} className="mr-2" />}
+                <span className="text-xs sm:text-sm font-medium">
                   {copyStatus === "idle" && "Copy"}
                   {copyStatus === "copied" && "Copied!"}
                   {copyStatus === "error" && "Failed"}
                 </span>
               </button>
             </div>
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-xs sm:text-sm text-gray-600">
               This link will take your customer to the campaign page.
             </p>
           </div>

@@ -5,9 +5,9 @@ import SelectPlatform from "./SelectPlatform/SelectPlatform";
 import AboutCampaign from "./AboutCampaign/AboutCampaign";
 import TermsConditions from "./TermsConditions/TermsConditions";
 import CreateDesign from "./CreateDesign/CreateDesign";
-import WhatsAppEdit from "./WhatsAppEdit​/WhatsAppEdit​";
-import SMSEdit from "./SMSEdit​/SMSEdit​";
-import EmailEdit from "./EmailEdit​/EmailEdit​";
+import WhatsAppEdit from "./WhatsAppEdit/WhatsAppEdit​";
+import SMSEdit from "./SMSEdit/SMSEdit​";
+import EmailEdit from "./EmailEdit/EmailEdit​";
 import TargetCustomers from "./TargetCustomers/TargetCustomers";
 import Budget from "./Budget/Budget";
 import { useGetTemplateByIdQuery } from "../../store/services/templateService";
@@ -38,7 +38,6 @@ const EditCampaign = () => {
   const navigate = useNavigate();
   const [campaignId, setCampaignId] = useState(null);
   const [selected_Whatsapp, setselected_Whatsapp] = useState(null);
-  const [selectedSMS, setselectedSMS] = useState(null)
   const [createCampaign] = useCreateCampaignMutation();
   const [updateCampaign] = useUpdateCampaignMutation();
   const [finalizeCampaign] = useFinalizeCampaignMutation();
@@ -87,7 +86,7 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     } else {
-      navigate("/SelectTemplates");
+      navigate("/select-templates");
     }
   };
 
@@ -95,7 +94,7 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
   //   if (currentStep < steps.length - 1) {
   //     setCurrentStep(currentStep + 1);
   //   } else {
-  //     // navigate('/FullSummary');
+  //     // navigate('/full-summary');
   //     setshow_summary(true);
   //   }
   // };
@@ -117,10 +116,10 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
       contactno: formState.contactno,
       rewardtype: formState.rewardtype,
       step: currentStep + 1,
-      url: main_url.replace("http://64.227.154.213:4040/lp/",""),
+      url: main_url.replace("http://143.110.252.166:4040/lp/",""),
     }).unwrap();
     console.log("main resp", response);
-    setmain_url(`http://64.227.154.213:4040/lp/${response.url}`);
+    setmain_url(`http://143.110.252.166:4040/lp/${response.url}`);
     setCampaignId(response.id);
     dispatch(
       setStepAndCampaignId({ step: currentStep + 1, campaignId: response.id })
@@ -208,7 +207,7 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
   const whatsappContent = selected_Whatsapp
     ? selected_Whatsapp
     : getPlatformContent("whatsapp");
-  const smsContent = selectedSMS ? selectedSMS: getPlatformContent("sms");
+  const smsContent = getPlatformContent("sms");
 
   const emailContent = getPlatformContent("email");
 
@@ -400,8 +399,6 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
           <SMSEdit
             content={smsContent.content}
             parameters={smsContent.parameters}
-            selected_SMS={selectedSMS}
-            setselected_SMS={setselectedSMS}
             main_url={main_url}
             onInputChange={(paramIndex, value) =>
               {handleInputChange(smsContent.platformId._id, paramIndex, value)
@@ -469,17 +466,17 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
 
   const calculateEachCost = () => {
     let platformCosts = {};
-  
+
     templatedata.data.platformContents.forEach((platform) => {
       if (checkedPlatforms[platform.platformId.type]) {
         const price = parseFloat(platform.price.$numberDecimal);
         const cost = price * formState.users.length;
-  
+
         // Store the cost for each platform type
         platformCosts[platform.platformId.type] = cost.toFixed(2);
       }
     });
-  
+
     return platformCosts;
   };
 
@@ -504,8 +501,8 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
       return (
         <aside className="flex-1justify-center items-center overflow-y-auto max-h-full">
           <Budget
-          setStep={setCurrentStep}
-          currentStep={currentStep}
+            setStep={setCurrentStep}
+            currentStep={currentStep}
             onInputChange={(e) =>
               handleChange({ target: { value: e, name: "scheduledTime" } })
             }

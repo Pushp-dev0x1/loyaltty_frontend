@@ -20,7 +20,7 @@ const SetupNewCampaign = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     } else {
-      navigate("/SelectTemplates");
+      navigate("/select-templates");
     }
   };
 
@@ -28,7 +28,7 @@ const SetupNewCampaign = () => {
     if (currentStep < 7) {
       setCurrentStep(currentStep + 1);
     } else {
-      navigate("/FullSummary");
+      navigate("/full-summary");
     }
   };
 

@@ -31,7 +31,7 @@ const PreviewPage = () => {
       />
       <h6 className="mt-5">Powered By</h6>
       <img src={'https://cygen.com.au/cygenwebretail/uploads/company/loyaltyy.jpg'} />
-      <h6 className="mt-5">Send <a href="http://64.227.154.213:4040/" target="_blank" style={{ color: templatedata?.data.themeColor }}>campaigns</a> for your Business</h6>
+      <h6 className="mt-5">Send <a href="http://143.110.252.166:4040/" target="_blank" style={{ color: templatedata?.data.themeColor }}>campaigns</a> for your Business</h6>
     </div>
   );
 };

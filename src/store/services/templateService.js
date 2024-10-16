@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const templateService = createApi({
     reducerPath: 'templateService',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://64.227.154.213:5500/api/templates',
+        baseUrl: 'http://143.110.252.166:5500/api/templates',
         prepareHeaders: (headers, { getState }) => {
             const state = getState();
             const token = state?.auth?.token;
@@ -51,18 +51,6 @@ const templateService = createApi({
                 method: 'GET'
             })
         }),
-        getAllWhatsAppTemplates: builder.query({
-            query: () => ({
-                url: '/getall/whatsappTemplates',
-                method: 'GET'
-            })
-        }),
-        getAllSMSTemplates: builder.query({
-            query: () => ({
-                url: '/getall/smsTemplates',
-                method: 'GET'
-            })
-        }),
     })
 });
 
@@ -72,9 +60,7 @@ export const {
     useCreateTemplateMutation,
     useUpdateTemplateStatusMutation,
     useGetTemplatesByCategoryQuery,
-    useGetTemplatesByRewardTypeQuery,
-    useGetAllWhatsAppTemplatesQuery,
-    useGetAllSMSTemplatesQuery
+    useGetTemplatesByRewardTypeQuery
 } = templateService;
 
 export default templateService;

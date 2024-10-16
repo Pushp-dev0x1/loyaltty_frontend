@@ -5,9 +5,9 @@ import SelectPlatform from "./SelectPlatform/SelectPlatform";
 import AboutCampaign from "./AboutCampaign/AboutCampaign";
 import TermsConditions from "./TermsConditions/TermsConditions";
 import CreateDesign from "./CreateDesign/CreateDesign";
-import WhatsAppEdit from "./WhatsAppEdit​/WhatsAppEdit​";
-import SMSEdit from "./SMSEdit​/SMSEdit​";
-import EmailEdit from "./EmailEdit​/EmailEdit​";
+import WhatsAppEdit from "./WhatsAppEdit/WhatsAppEdit​";
+import SMSEdit from "./SMSEdit/SMSEdit​";
+import EmailEdit from "./EmailEdit/EmailEdit​";
 import TargetCustomers from "./TargetCustomers/TargetCustomers";
 import Budget from "./Budget/Budget";
 import { useGetTemplateByIdQuery } from "../../store/services/templateService";
@@ -92,7 +92,7 @@ const EditDraft = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     } else {
-      navigate("/SelectTemplates");
+      navigate("/select-templates");
     }
   };
 
@@ -100,7 +100,7 @@ const EditDraft = () => {
   //   if (currentStep < steps.length - 1) {
   //     setCurrentStep(currentStep + 1);
   //   } else {
-  //     // navigate('/FullSummary');
+  //     // navigate('/full-summary');
   //     setshow_summary(true);
   //   }
   // };

@@ -111,7 +111,7 @@ const SchedulesDetails = () => {
             No campaign data available
           </h2>
           <button
-            onClick={() => navigate("/SelectTemplates")}
+            onClick={() => navigate("/select-templates")}
             className="px-4 py-2 bg-[#040869] text-white rounded hover:bg-[#040869]/80 transition duration-300"
           >
             Return to Schedules
@@ -127,7 +127,7 @@ const SchedulesDetails = () => {
         <div className="p-3 sm:p-6 md:p-8">
           <div className="mb-4 sm:mb-6">
             <button
-              onClick={() => navigate("/SelectTemplates")}
+              onClick={() => navigate("/select-templates")}
               className="flex items-center text-[#6F7782] hover:text-[#111827] transition duration-300"
             >
               <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />

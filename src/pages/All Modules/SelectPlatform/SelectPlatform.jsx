@@ -12,7 +12,7 @@
 // const SelectPlatform = () => {
 //   const navigate = useNavigate();
 //   const [selectedOptions, setSelectedOptions] = useState([]);
-//   const handleBackClick = () => navigate("/SelectTemplates");
+//   const handleBackClick = () => navigate("/select-templates");
 //   const handleContinueClick = () => navigate("/WhatsappModule");
 
 //   const toggleOption = (name) => {
@@ -113,7 +113,7 @@ const COMMUNICATION_OPTIONS = [
 const SelectPlatform = () => {
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const handleBackClick = () => navigate("/SelectTemplates");
+  const handleBackClick = () => navigate("/select-templates");
   const handleContinueClick = () => navigate("/WhatsappModule");
 
   const toggleOption = (name) => {

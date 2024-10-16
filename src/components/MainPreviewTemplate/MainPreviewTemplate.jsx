@@ -21,7 +21,7 @@ const MainPreviewTemplate = ({
   main_url,
   checkedPlatforms,
   selectedwhatsappIndex,
-  selected_SMSindex
+  selected_SMSindex,
 }) => {
   const allButtons = ["Creative", "Whatsapp", "SMS", "Email"];
   const buttons = allButtons.filter((button) => {
@@ -32,15 +32,11 @@ const MainPreviewTemplate = ({
   });
 
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const isTablet = useMediaQuery("(min-width: 601px) and (max-width: 1024px)");
   const [activeButton, setActiveButton] = useState(
     defaultButton !== undefined ? buttons[defaultButton] : "Creative"
   );
   console.log(defaultButton, "main button");
-  // const handleClick = (buttonName) => {
-  //   if (defaultButton === undefined || buttonName === buttons[defaultButton]) {
-  //     setActiveButton(buttonName);
-  //   }
-  // };
 
   const swiperRef = useRef(null);
   const [transitioning, setTransitioning] = useState(false);
@@ -56,7 +52,7 @@ const MainPreviewTemplate = ({
         setTimeout(() => {
           setCurrentButton(activeButton);
           setTransitioning(false);
-        }, 400); // Duration of the animation
+        }, 400);
       } else {
         setActiveButton(buttonName);
         setCurrentButton(activeButton);
@@ -68,7 +64,6 @@ const MainPreviewTemplate = ({
     }
   };
 
-  // New function to handle slide change
   const handleSlideChange = (swiper) => {
     const newIndex = swiper.activeIndex;
     setActiveButton(buttons[newIndex]);
@@ -85,16 +80,16 @@ const MainPreviewTemplate = ({
 
   return (
     <aside
-      className="flex-1  flex flex-col justify-start overflow-y-auto max-h-full"
+      className="flex-1 flex flex-col justify-start overflow-y-auto max-h-full"
       style={{ scrollbarWidth: "none" }}
     >
-      <div className="flex items-center justify-center  sm:mb-6 mt-5">
+      <div className="flex items-center justify-center sm:mb-6 mt-5 mb-4">
         <div
-          className=" rounded-full py-1 px-1 sm:px-2 mx-1 sm:mx-8 sm:py-2 flex justify-between overflow-x-auto border  border-[#040869]"
+          className="rounded-full py-1 px-1 sm:px-2 mx-1 sm:mx-8 sm:py-2 flex justify-between overflow-x-auto border border-[#040869]"
           style={{
             scrollbarWidth: "none",
-            width: `${buttons.length * 100}px`, // Adjust the width based on the number of buttons
-            maxWidth: "100%", // Ensure it doesn't exceed the container's width
+            width: `${buttons.length * (isMobile ? 80 : 100)}px`,
+            maxWidth: "100%",
           }}
         >
           {buttons.map((button) => (
@@ -114,7 +109,7 @@ const MainPreviewTemplate = ({
       </div>
 
       <aside
-        className="flex-1  flex flex-col justify-end max-h-full"
+        className="flex-1 flex flex-col justify-end max-h-full"
         style={{ scrollbarWidth: "none" }}
       >
         {activeButton == "Creative" ? (
@@ -139,11 +134,14 @@ const MainPreviewTemplate = ({
               backgroundSize: "contain",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-
-              height: "calc(490px)", // Aspect ratio same as your image
+              height: isMobile
+                ? "calc(46vh)"
+                : isTablet
+                ? "calc(80vh)"
+                : "calc(490px)",
             }}
           >
-            <div className={`flex justify-center items-center `}>
+            <div className={`flex justify-center items-center w-full h-full`}>
               {activeButton === "SMS" && (
                 <SmsCard
                   content={smscontent}
@@ -154,7 +152,7 @@ const MainPreviewTemplate = ({
               )}
               {activeButton === "Whatsapp" && (
                 <WhatsappPreview
-                activeParameterIndex={selectedwhatsappIndex}
+                  activeParameterIndex={selectedwhatsappIndex}
                   logo={themeform.logo}
                   content={whatsappcontent}
                   parameters={whatsappparameters}
@@ -163,16 +161,14 @@ const MainPreviewTemplate = ({
               )}
               {activeButton === "Email" && (
                 <div
-                  className={`flex mt-[25vh] flex-col  items-center justify-center max-w-full p-2 sm:p-4 `}
+                  className={`flex mt-[24vh] sm:mt-[20vh] flex-col items-center justify-center max-w-full p-2 sm:p-4`}
                 >
                   <img
-                    className="w-24 h-18 sm:w-32 sm:h-18 mb-2 sm:mb-4"
-                    src="https://i.pinimg.com/originals/7e/dd/76/7edd76af1a3e20a914247921f9cd3dda.png"
+                    className="w-10 h-18 sm:w-15 sm:h-18 mb-2 sm:mb-4"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/ccfdca0b8f4a8882d438a4bcfb7d0977e85429c0e35245f44a752a0cc95cad03?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f"
                     alt="Email icon"
                   />
-                  <h5 className="email-subject text-xs -mt-10 sm:text-sm mb-2 sm:mb-4 text-center">
-                    {formdata.subject}
-                  </h5>
+
                   <div className="w-full">
                     <CampaignCard
                       {...formdata}
@@ -190,88 +186,7 @@ const MainPreviewTemplate = ({
           </div>
         )}
       </aside>
-
-      {/* <Swiper
-        effect={'cards'}
-        grabCursor={true}
-        modules={[EffectCards]}
-        className="mySwiper"
-        ref={swiperRef}
-        cardsEffect={{
-          slideShadows: false,
-        }}
-        onSlideChange={handleSlideChange}
-        style={{ width: '400px', height: 'auto' }}
-      >
-        <SwiperSlide style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', borderRadius: '40px', height: '700px', width: '400px' }}>
-          <EmailCampaignCard {...formdata} bannerImage={themeform.bannerImage} rewardtype={themeform.rewardtype} logo={themeform.logo} textColor={themeform.textColor} themeColor={themeform.themeColor} contactno={themeform.contactno} main_url={main_url} />
-        </SwiperSlide>
-        {checkedPlatforms.whatsapp && (
-          <SwiperSlide style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '40px' }}>
-            <div className="w-full sm:w-auto overflow-y-auto sm:overflow-y-hidden" style={{ scrollbarWidth: "none" }}>
-              <ReactDevicePreview device="iphonex" scale={window.innerWidth < 640 ? "0.5" : "0.75"} style={{ height: "auto", minHeight: "100%" }}>
-                <WhatsappPreview content={whatsappcontent} parameters={whatsappparameters} main_url={main_url} />
-              </ReactDevicePreview>
-            </div>
-          </SwiperSlide>
-        )}
-
-        {checkedPlatforms.sms && (
-          <SwiperSlide style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '40px' }}>
-            <div className="w-full sm:w-auto overflow-y-auto sm:overflow-y-hidden" style={{ scrollbarWidth: "none" }}>
-              <ReactDevicePreview device="iphonex" scale={window.innerWidth < 640 ? "0.5" : "0.75"} style={{ height: "auto", minHeight: "100%" }}>
-                <SmsCard content={smscontent} parameters={smsparams} main_url={main_url} />
-              </ReactDevicePreview>
-            </div>
-          </SwiperSlide>
-        )}
-        {checkedPlatforms.email && (
-          <SwiperSlide style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '40px' }}>
-            <div className="w-full sm:w-auto overflow-y-auto sm:overflow-y-hidden" style={{ scrollbarWidth: "none" }}>
-              <ReactDevicePreview device="iphonex" scale={window.innerWidth < 640 ? "0.5" : "0.75"} style={{ height: "auto", minHeight: "100%" }}>
-                <div className="flex flex-col h-full items-center justify-center max-w-full p-2 sm:p-4">
-                  <img
-                    className="w-24 h-24 sm:w-32 sm:h-32 mb-2 sm:mb-4"
-                    src="https://i.pinimg.com/originals/7e/dd/76/7edd76af1a3e20a914247921f9cd3dda.png"
-                    alt="Email icon"
-                  />
-                  <h5 className="email-subject text-xs sm:text-sm mb-2 sm:mb-4 text-center">{formdata.subject}</h5>
-                  <div className="w-full">
-                    <CampaignCard {...formdata}  rewardtype={themeform.rewardtype} bannerImage={themeform.bannerImage} logo={themeform.logo} textColor={themeform.textColor} themeColor={themeform.themeColor} contactno={themeform.contactno} main_url={main_url} />
-                  </div>
-                </div>
-              </ReactDevicePreview>
-            </div>
-          </SwiperSlide>
-        )}
-      </Swiper> */}
     </aside>
-
-    // {/* <div className="flex justify-end">
-    //   {activeButton == "Creative" && <CampaignCard {...formdata} bannerImage={themeform.bannerImage} textColor={themeform.textColor} themeColor={themeform.themeColor} contactno={themeform.contactno} main_url={main_url} />}
-
-    //   {activeButton !== "Creative" && (
-    //     <div className="w-full sm:w-auto overflow-y-auto sm:overflow-y-hidden" style={{ scrollbarWidth: "none" }}>
-    //       <ReactDevicePreview device="iphonex" scale={window.innerWidth < 640 ? "0.5" : "0.75"} style={{ height: "auto", minHeight: "100%" }}>
-    //         {activeButton === "SMS" && <SmsCard content={smscontent} parameters={smsparams} main_url={main_url} />}
-    //         {activeButton === "Email" && (
-    //           <div className="flex flex-col h-full items-center justify-center max-w-full p-2 sm:p-4">
-    //             <img
-    //               className="w-24 h-24 sm:w-32 sm:h-32 mb-2 sm:mb-4"
-    //               src="https://i.pinimg.com/originals/7e/dd/76/7edd76af1a3e20a914247921f9cd3dda.png"
-    //               alt="Email icon"
-    //             />
-    //             <h5 className="email-subject text-xs sm:text-sm mb-2 sm:mb-4 text-center">{formdata.subject}</h5>
-    //             <div className="w-full">
-    //               <CampaignCard {...formdata} bannerImage={themeform.bannerImage} textColor={themeform.textColor} themeColor={themeform.themeColor} contactno={themeform.contactno} main_url={main_url} />
-    //             </div>
-    //           </div>
-    //         )}
-    //         {activeButton === "Whatsapp" && <WhatsappPreview content={whatsappcontent} parameters={whatsappparameters} main_url={main_url} />}
-    //       </ReactDevicePreview>
-    //     </div>
-    //   )}
-    // </div> */}
   );
 };
 

@@ -3,7 +3,7 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 const authService = createApi({
     reducerPath: 'auth',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://64.227.154.213:5500/api/',
+        baseUrl: 'http://143.110.252.166:5500/api/',
         prepareHeaders: (headers, { getState }) => {
             const reducers = getState();
             const token = reducers?.authReducer?.token;

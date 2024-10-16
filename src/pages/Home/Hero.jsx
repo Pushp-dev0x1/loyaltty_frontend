@@ -24,7 +24,7 @@ const Hero = () => {
         </p>
         {/* </div> */}
         <button
-          onClick={() => navigate("merchantLogin")}
+          onClick={() => navigate("/merchant-login")}
           className="px-8 py-4 bg-black text-white text-lg font-medium rounded-lg shadow-lg hover:bg-gray-900 transition-colors duration-300"
         >
           Get Started Now

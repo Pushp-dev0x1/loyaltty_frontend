@@ -88,7 +88,7 @@ const LoyaltyProgram = () => {
           <div className="flex justify-between mt-6">
             <button
               className="border border-[#040869] rounded py-2 px-6 text-[#040869]"
-              onClick={() => navigate("/SetupCampaign")}
+              onClick={() => navigate("/setup-campaign")}
             >
               Back
             </button>

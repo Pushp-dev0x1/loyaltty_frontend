@@ -159,7 +159,7 @@ const Pricing = () => {
                       </li>
                     </ul>
                     <button
-                      onClick={() => navigate("/selectplat")}
+                      onClick={() => navigate("/select-templates")}
                       type="button"
                       class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-[#040869] shadow-sm hover:bg-[#F6F6F7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                     >

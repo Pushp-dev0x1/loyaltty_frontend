@@ -37,7 +37,7 @@
 //     );
 
 //     if (user) {
-//       navigate('/SelectTemplates');
+//       navigate('/select-templates');
 //     } else {
 //       setError('Invalid OTP. Please try again.');
 //     }
@@ -186,7 +186,7 @@ const MerchantLogin = () => {
     );
 
     if (user) {
-      navigate('/SelectTemplates');
+      navigate('/select-templates');
     } else {
       setError(authMethod === 'otp' ? 'Invalid OTP. Please try again.' : 'Invalid password. Please try again.');
     }

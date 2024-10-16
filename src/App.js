@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
@@ -8,7 +8,6 @@ import SelectTemplates from "./pages/SelectTemplates/SelectTemplates";
 import Prices from "./pages/Pricing";
 import SetupCampaign from "./pages/All Modules/SetupCampaign";
 import Summary from "./pages/All Modules/Summary/Summary";
-import SetupNewCampaign from "./pages/New Campaigns/SetupNewCampaign";
 import FullSummary from "./pages/New Campaigns/FullSummary/FullSummary";
 import EditCampaign from "./pages/EditCampaigns/EditCampaign";
 import CampaignSubmit from "./pages/EditCampaigns/CampaignSubmitted";
@@ -32,12 +31,12 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<MainContent />} />
-        <Route path="SelectTemplates" element={<SelectTemplates />} />
-        <Route path="SetupCampaign" element={<SetupCampaign />} />
+        <Route path="select-templates" element={<SelectTemplates />} />
+        <Route path="setup-campaign" element={<SetupCampaign />} />
         <Route path="summary" element={<Summary />} />
         {/* Setup New Campaign */}
-        <Route path="SetupNewCampaign" element={<NewCampaign />} />
-        <Route path="FullSummary" element={<FullSummary />} />
+        <Route path="setup-new-campaign" element={<NewCampaign />} />
+        <Route path="full-summary" element={<FullSummary />} />
         <Route path="prices" element={<Prices />} />
         {/* edit campaign */}
         <Route path="editcamp/:id" element={<EditCampaign />} />
@@ -47,11 +46,11 @@ const App = () => {
         <Route path="schedule/:id" element={<SchedulesDetails />} />
         <Route path="lp/:id" element={<PreviewPage />} />
         {/* Add Users */}
-        <Route path="merchantLogin" element={<MerchantLogin />} />
+        <Route path="merchant-login" element={<MerchantLogin />} />
         <Route path="addUsers" element={<AddUsers />} />
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

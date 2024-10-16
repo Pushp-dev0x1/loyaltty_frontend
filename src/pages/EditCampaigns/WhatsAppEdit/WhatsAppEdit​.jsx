@@ -268,7 +268,7 @@ const WhatsAppEdit = ({
               <p className="why-link-button">Why can't I edit everything?</p>
             </div>
           </div>
-          <div
+          {/* <div
             onClick={toggleDropdown}
             className="md:hidden w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 flex justify-between items-center cursor-pointer"
           >
@@ -280,7 +280,7 @@ const WhatsAppEdit = ({
             ) : (
               <ChevronDown size={20} />
             )}
-          </div>
+          </div> */}
           {/* <div
             ref={contentRef}
             className={`mt-2 md:mt-4 space-y-2 md:space-y-6 ${
@@ -310,7 +310,7 @@ const WhatsAppEdit = ({
                 </button>
               </div>
               {activeLink === "loyaltty" ? (
-                <div className="link">64.227.154.213:4040/lp/{main_url}</div>
+                <div className="link">143.110.252.166:4040/lp/{main_url}</div>
               ) : (
                 <div className="custom-link-wrapper">
                   <input
@@ -349,33 +349,33 @@ const WhatsAppEdit = ({
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4 sm:p-0">
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4">
           <div
             ref={modalRef}
-            className="bg-white rounded-xl shadow-2xl w-4/5 max-w-6xl h-auto mx-auto overflow-hidden transform transition-all"
+            className="bg-white rounded-xl shadow-2xl w-full max-w-6xl h-auto mx-auto overflow-hidden transform transition-all"
           >
-            <div className="bg-gray-50 px-8 py-6 border-b border-gray-200">
-              <h2 className="text-3xl font-semibold text-gray-800">
+            <div className="bg-gray-50 px-4 sm:px-8 py-4 sm:py-6 border-b border-gray-200 text-center relative">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800">
                 WhatsApp Templates
               </h2>
               {selectedTemplate && (
                 <button
                   onClick={handleConfirm}
-                  className="flex p-1 mt-5 md:mt-0 text-xl items-center justify-center text-white border-solid bg-[#040869] border-[2.008px] border-black border-opacity-10 min-h-[52px] rounded-[32.131px] w-full md:w-[200px] md:max-w-[364px] md:absolute md:bottom-5 md:left-1/2 md:transform md:-translate-x-1/2"
+                  className="flex p-1 mt-4 text-lg sm:text-xl items-center justify-center text-white border-solid bg-[#040869] border-[2px] border-black border-opacity-10 min-h-[40px] sm:min-h-[52px] rounded-full w-full sm:w-auto sm:px-8 mx-auto lg:absolute lg:bottom-5 lg:right-8"
                 >
                   Select
                 </button>
               )}
             </div>
-            <div className="p-8 overflow-y-auto" style={{ maxHeight: "80vh" }}>
+            <div className="p-4 sm:p-8 overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
               <div
-                className="grid auto-cols-fr auto-rows-fr"
+                className="grid gap-4 sm:gap-6 lg:gap-8"
                 style={{
-                  gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
                 }}
               >
                 {whatsappTemplatesData.map((template, index) => (
-                  <div key={index}>
+                  <div key={index} className="flex justify-center">
                     <WhatsappTemplates
                       {...template}
                       onClick={() => handleTemplateSelect(template)}

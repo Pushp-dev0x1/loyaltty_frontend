@@ -192,30 +192,30 @@ const FullSummary = () => {
             </div>
           </div>
 
-          <div className="bg-white p-3 rounded-xl shadow-md">
-            <div className="flex items-center mb-2">
-              <Calendar className="mr-2 text-[#040869]" size={18} />
-              <p className="font-semibold text-[#040869] text-xs md:text-sm">Campaign Schedule:</p>
+          <div className="bg-white p-3 sm:p-4 md:p-5 rounded-xl shadow-md">
+            <div className="flex items-center mb-2 sm:mb-3">
+              <Calendar className="mr-2 sm:mr-3 text-[#040869]" size={18} />
+              <p className="font-semibold text-[#040869] text-xs sm:text-sm md:text-base">Campaign Schedule:</p>
             </div>
-            <div className="space-y-2 ml-6">
+            <div className="space-y-2 sm:space-y-3 ml-6 sm:ml-7 md:ml-8">
               {selectedDates.map((date, index) => (
                 <div key={index} className="flex items-center">
-                  <Calendar size={12} className="mr-2 text-[#040869]" />
-                  <span className="text-[#040869] text-xs md:text-sm">{date}</span>
+                  <Calendar size={12} className="mr-2 sm:mr-3 text-[#040869]" />
+                  <span className="text-[#040869] text-xs sm:text-sm md:text-base">{date}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="flex justify-between mt-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-4 sm:mt-6">
             <button
-              className="border-2 border-[#040869] rounded-lg py-2 px-3 md:px-4 text-[#040869] font-semibold text-sm md:text-base hover:bg-[#040869] hover:text-white transition-colors duration-300"
-              onClick={() => navigate("/SetupNewCampaign")}
+              className="w-full sm:w-auto mb-3 sm:mb-0 border-2 border-[#040869] rounded-lg py-2 px-4 text-[#040869] font-semibold text-sm md:text-base hover:bg-[#040869] hover:text-white transition-colors duration-300"
+              onClick={() => navigate("/setup-new-campaign")}
             >
               Back
             </button>
             <button
-              className="bg-[#040869] text-white rounded-lg py-2 px-3 md:px-4 font-semibold text-sm md:text-base hover:bg-[#0a0d36] transition-colors duration-300"
+              className="w-full sm:w-auto bg-[#040869] text-white rounded-lg py-2 px-4 font-semibold text-sm md:text-base hover:bg-[#0a0d36] transition-colors duration-300"
               onClick={() => navigate("")}
             >
               Continue

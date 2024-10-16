@@ -5,9 +5,9 @@ import SelectPlatform from "./SelectPlatform/SelectPlatform";
 import AboutCampaign from "./AboutCampaign/AboutCampaign";
 import TermsConditions from "./TermsConditions/TermsConditions";
 import CreateDesign from "./CreateDesign/CreateDesign";
-import WhatsAppEdit from "./WhatsAppEdit​/WhatsAppEdit​";
-import SMSEdit from "./SMSEdit​/SMSEdit​";
-import EmailEdit from "./EmailEdit​/EmailEdit​";
+import WhatsAppEdit from "./WhatsAppEdit/WhatsAppEdit​";
+import SMSEdit from "./SMSEdit/SMSEdit​";
+import EmailEdit from "./EmailEdit/EmailEdit​";
 import TargetCustomers from "./TargetCustomers/TargetCustomers";
 import Budget from "./Budget/Budget";
 import { useGetTemplateByIdQuery } from "../../store/services/templateService";
@@ -77,7 +77,7 @@ const NewCampaign = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     } else {
-      navigate("/SelectTemplates");
+      navigate("/select-templates");
     }
   };
 
@@ -85,7 +85,7 @@ const NewCampaign = () => {
   //   if (currentStep < steps.length - 1) {
   //     setCurrentStep(currentStep + 1);
   //   } else {
-  //     // navigate('/FullSummary');
+  //     // navigate('/full-summary');
   //     setshow_summary(true);
   //   }
   // };
@@ -540,7 +540,7 @@ const NewCampaign = () => {
     } else {
       return (  <aside className="flex-1  max-md:p-1 max-lg:p-6 flex flex-col justify-center items-center overflow-y-auto max-h-full">
         <div className="campaign-type-selector bg-transparent rounded-xl p-4 w-full max-w-2xl">
-          <h1 className="text-xl font-semibold leading-loose text-center text-gray-900 max-md:max-w-full">
+          <h1 className="text-sm sm:text-xl font-semibold leading-loose text-center text-gray-900 max-md:max-w-full">
          What type of campaign do you want to run?
           </h1>
           {campaignOptions.map((option, index) => (

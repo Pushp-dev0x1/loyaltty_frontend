@@ -145,13 +145,15 @@ const SelectTemplates = () => {
       navigation: false,
       pagination: false,
       loop: false,
+      freeMode: true,
       breakpoints: {
-        320: { slidesPerView: 1.5, spaceBetween: 1 },
-        480: { slidesPerView: 2, spaceBetween: 15 },
-        640: { slidesPerView: 3, spaceBetween: 20 },
+        320: { slidesPerView: 1.8, spaceBetween: 8 },
+        480: { slidesPerView: 1.8, spaceBetween: 10 },
+        640: { slidesPerView: 2.2, spaceBetween: 15 },
         768: { slidesPerView: 2.5, spaceBetween: 20 },
-        1024: { slidesPerView: 3, spaceBetween: 5 },
-        1280: { slidesPerView: 4.5, spaceBetween: 30 },
+        1024: { slidesPerView: 3.2, spaceBetween: 25 },
+        1280: { slidesPerView: 4, spaceBetween: 30 },
+        1536: { slidesPerView: 4.5, spaceBetween: 35 },
       },
     }),
     []
@@ -160,19 +162,23 @@ const SelectTemplates = () => {
 
   const renderScratchCard = useCallback(
     (cards) => (
-      <div className="mb-6">
-        <Swiper {...scratchCardSwiperParams} className="pb-10">
+      <div className="mb-6 ml-1">
+        <Swiper {...scratchCardSwiperParams} className="pb-5">
           <SwiperSlide>
             <Link
-              to="/SetupNewCampaign"
+              to="/setup-new-campaign"
               className="flex justify-center"
               onClick={() => {
                 dispatch(resetStepAndCampaignId());
               }}
             >
-              <div className="w-48 h-28 sm:w-64 sm:h-28 bg-gradient-to-br from-[#e0e0e0] to-[#f5f5f5] rounded-lg shadow-md overflow-hidden flex flex-col justify-center items-center gap-3 transition-all duration-300 hover:shadow-xl hover:scale-105 my-5">
-                <Plus className="text-[#040869]" size={24} />
-                <p className="text-[#040869] font-semibold text-base sm:text-lg">
+              <div className="w-full max-w-[171.84px] h-[54.18px] sm:w-full sm:max-w-[350px] sm:h-[110px] mx-auto bg-gradient-to-br from-[#F5F5F5] to-[#E0E0E0] border border-[#040869] rounded-2xl shadow-md flex items-center justify-center p-3 sm:p-6 relative overflow-hidden my-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                <Plus
+                  className="text-[#040869] mr-2 sm:mr-3"
+                  size={16}
+                  sm={20}
+                />
+                <p className="text-[#040869] font-semibold text-xs sm:text-lg">
                   Start from Scratch
                 </p>
               </div>
@@ -182,7 +188,7 @@ const SelectTemplates = () => {
           {cards?.map((card, index) => (
             <SwiperSlide key={index}>
               <div
-                className="flex justify-center my-5"
+                className="flex justify-center my-2"
                 onClick={() => setselectmaincat(card)}
               >
                 <ScratchCard
@@ -294,20 +300,19 @@ const SelectTemplates = () => {
   //   },
   // ];
 
-const data =
-  historycampaigns?.data?.map((campaign) => ({
-    _id: campaign._id,
-    title: campaign.title,
-    time: campaign.createdAt
-      ? new Date(campaign.createdAt).toLocaleTimeString()
-      : "",
-    amount: campaign.amount || "0.00",
-    date: campaign.createdAt
-      ? new Date(campaign.createdAt).toLocaleDateString()
-      : "",
-    status: campaign.status || "Excellent",
-  })) || [];
-  
+  const data =
+    historycampaigns?.data?.map((campaign) => ({
+      _id: campaign._id,
+      title: campaign.title,
+      time: campaign.createdAt
+        ? new Date(campaign.createdAt).toLocaleTimeString()
+        : "",
+      amount: campaign.amount || "0.00",
+      date: campaign.createdAt
+        ? new Date(campaign.createdAt).toLocaleDateString()
+        : "",
+      status: campaign.status || "Excellent",
+    })) || [];
 
   https: return (
     <section className="flex items-center justify-center min-h-screen text-[#040869]  p-4 selection:text-white selection:bg-[#040869]">
@@ -335,7 +340,7 @@ const data =
           </div>
         </header> */}
         {/* Responsive header section */}
-        <header className="flex flex-col w-full overflow-hidden rounded-3xl bg-gradient-to-br from-[#040869] via-[#585DCB] to-[#191E86] text-white p-4 sm:p-6 md:p-8 lg:p-10">
+        <header className="relative flex flex-col w-full overflow-hidden rounded-3xl bg-gradient-to-br from-[#040869] via-[#2E33A4] to-[#585DCB] text-white p-4 sm:p-6 md:p-8 lg:p-10">
           <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start gap-4 sm:gap-5 mb-6 sm:mb-8">
             {/* Logo and user icon */}
             <div className="flex justify-between w-full sm:w-auto">
@@ -343,7 +348,7 @@ const data =
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/bba26802c32fba952206773c1d3bb2793592695dc4327657cf361e828b91e45f?placeholderIfAbsent=true&apiKey=416251b402e2495eab402c9d5ac956ab"
                 alt="Logo"
-                className="w-16 sm:w-20 md:w-24 object-contain"
+                className="w-12 sm:w-20 md:w-24 object-contain"
               />
               <img
                 loading="lazy"
@@ -354,11 +359,11 @@ const data =
             </div>
 
             {/* Title and subtitle */}
-            <div className="text-center  flex-grow">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter leading-tight mb-2 sm:mb-3">
+            <div className="text-center sm:text-center flex-grow">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter leading-tight mb-2 sm:mb-3">
                 Select Templates
               </h1>
-              <p className="text-base sm:text-lg md:text-xl font-medium leading-relaxed">
+              <p className="text-sm sm:text-lg md:text-xl font-medium leading-relaxed">
                 Choose from our wide range of customizable templates
               </p>
             </div>
@@ -373,13 +378,13 @@ const data =
           </div>
 
           {/* Tab switcher */}
-          <div className="flex justify-center mb-6 sm:mb-8">
-            <div className="flex gap-1 sm:gap-2 p-2 border  border-[#FFF] rounded-full">
+          <div className="flex justify-center mb-4 sm:mb-8">
+            <div className="flex gap-1 sm:gap-2 p-1 sm:p-2 border border-[#FFF] rounded-full">
               {["Campaigns", "History"].map((tab, index) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(index)}
-                  className={`px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium rounded-full transition-all ${
+                  className={`px-3 sm:px-6 py-1 sm:py-3 text-xs sm:text-base font-medium rounded-full transition-all ${
                     activeTab === index
                       ? "bg-white text-blue-950 shadow-lg"
                       : "text-white hover:bg-white hover:bg-opacity-10"
@@ -404,7 +409,7 @@ const data =
                 type="text"
                 id="searchTemplates"
                 placeholder="Search templates..."
-                className="flex-grow bg-transparent border-none focus:outline-none px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-gray-700"
+                className="flex-grow bg-transparent border-none focus:outline-none px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-gray-700"
               />
             </form>
           </div>
@@ -413,11 +418,11 @@ const data =
         {activeTab === 0 ? (
           <>
             <section className="mt-8 sm:mt-12">
-              <div className="flex flex-row items-end  mb-4 sm:mb-6">
-                <h2 className="text-xl sm:text-2xl font-semibold text-black">
+              <div className="flex flex-col sm:flex-row items-start sm:items-end mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-semibold text-black mb-2 sm:mb-0">
                   What would you like to send today?
                 </h2>
-                <p className="text-sm sm:text-base text-black ml-2">
+                <p className="text-sm sm:text-base text-black sm:ml-2">
                   Choose from hundreds of templates pre-built for you!
                 </p>
               </div>
@@ -433,7 +438,7 @@ const data =
               </section>
             ) : null}
 
-            <div className="flex justify-center mb-10">
+            <div className="flex justify-start mb-10">
               <FilterBar
                 selectedfilter={selecteddiscount_Type}
                 setselectedfilter={setselecteddiscount_Type}

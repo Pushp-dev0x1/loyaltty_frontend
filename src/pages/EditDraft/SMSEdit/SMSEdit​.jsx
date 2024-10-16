@@ -87,7 +87,7 @@
 //   };
   
 //   const calculateCharacterLength = () => {
-//     const fullMessage = `${messageContent.storeName}: ${messageContent.greeting}! ${messageContent.message1} to ${messageContent.message2} & ${messageContent.message3}. Click ${activeLink === "loyaltty" ? `64.227.154.213:4040/lp/${main_url}` : customLink} via loyaltty`;
+//     const fullMessage = `${messageContent.storeName}: ${messageContent.greeting}! ${messageContent.message1} to ${messageContent.message2} & ${messageContent.message3}. Click ${activeLink === "loyaltty" ? `143.110.252.166:4040/lp/${main_url}` : customLink} via loyaltty`;
 //     return fullMessage.length;
 //   };
 
@@ -127,7 +127,7 @@
 
 //   const copyToClipboard = async () => {
 //     const linkToCopy = activeLink === "loyaltty" 
-//       ? `64.227.154.213:4040/lp/${main_url}`
+//       ? `143.110.252.166:4040/lp/${main_url}`
 //       : customLink;
     
 //     try {
@@ -206,7 +206,7 @@
 //                     return part;
 //                   })
 //                 }
-//                 Click {activeLink === "loyaltty" ? `64.227.154.213:4040/lp/${main_url}` : customLink} via loyaltty
+//                 Click {activeLink === "loyaltty" ? `143.110.252.166:4040/lp/${main_url}` : customLink} via loyaltty
 //               </div>
 //               <p className="why-link-button">Why can't I edit everything?</p>
 //             </div>
@@ -243,7 +243,7 @@
 //                 </button>
 //               </div>
 //               {activeLink === "loyaltty" ? (
-//                 <div className="link">64.227.154.213:4040/lp/{main_url}</div>
+//                 <div className="link">143.110.252.166:4040/lp/{main_url}</div>
 //               ) : (
 //                 <div className="custom-link-wrapper">
 //                   <input
@@ -396,7 +396,7 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url }) => {
     }! ${messageContent.message1} to ${messageContent.message2} & ${
       messageContent.message3
     }. Click ${
-      activeLink === "loyaltty" ? `64.227.154.213:4040/lp/${main_url}` : customLink
+      activeLink === "loyaltty" ? `143.110.252.166:4040/lp/${main_url}` : customLink
     } via loyaltty`;
     return fullMessage.length;
   };
@@ -439,7 +439,7 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url }) => {
   const copyToClipboard = async () => {
     const linkToCopy =
       activeLink === "loyaltty"
-        ? `64.227.154.213:4040/lp/${main_url}`
+        ? `143.110.252.166:4040/lp/${main_url}`
         : customLink;
 
     try {
@@ -525,7 +525,7 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url }) => {
                 })}
                 Click{" "}
                 {activeLink === "loyaltty"
-                  ? `64.227.154.213:4040/lp/${main_url}`
+                  ? `143.110.252.166:4040/lp/${main_url}`
                   : customLink}{" "}
                 via loyaltty
               </div>
@@ -572,7 +572,7 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url }) => {
                 </button>
               </div>
               {activeLink === "loyaltty" ? (
-                <div className="link">64.227.154.213:4040/lp/{main_url}</div>
+                <div className="link">143.110.252.166:4040/lp/{main_url}</div>
               ) : (
                 <div className="custom-link-wrapper">
                   <input

@@ -1,22 +1,67 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Copy, ChevronDown, ChevronUp, Check } from "lucide-react";
-import "./SMSEdit.css";
+// import "./SMSEdit.css";
 
 import { BiSolidEdit } from "react-icons/bi";
 import WhatsappTemplates from "../../../components/WhatsappTemplates/WhatsappTemplates";
-import { useGetAllSMSTemplatesQuery } from "../../../store/services/templateService";
 
+const whatsappTemplatesData = [
+  {
+    username: "John Doe",
+    lastseen: "Today at 10:30 AM",
+    message: "Hello! Welcome to our service. How can I assist you today?",
+    time: "11:45 AM",
+    profilepic: "https://randomuser.me/api/portraits/men/1.jpg",
+  },
+  {
+    username: "Jane Smith",
+    lastseen: "Yesterday at 8:45 PM",
+    message:
+      "We appreciate your business. Here's a special offer just for you!",
+    time: "9:00 AM",
+    profilepic: "https://randomuser.me/api/portraits/women/2.jpg",
+  },
+  {
+    username: "Alex Johnson",
+    lastseen: "Online",
+    message: "Don't miss out on our upcoming sale! Save the date: [sale_date]",
+    time: "3:20 PM",
+    profilepic: "https://randomuser.me/api/portraits/men/3.jpg",
+  },
+  {
+    username: "Emily Brown",
+    lastseen: "Today at 2:15 PM",
+    message: "Thank you for your recent purchase! How was your experience?",
+    time: "4:30 PM",
+    profilepic: "https://randomuser.me/api/portraits/women/4.jpg",
+  },
+  {
+    username: "Michael Lee",
+    lastseen: "Yesterday at 11:20 AM",
+    message:
+      "Exciting news! We've just launched our new product line. Check it out!",
+    time: "10:00 AM",
+    profilepic: "https://randomuser.me/api/portraits/men/5.jpg",
+  },
+  {
+    username: "Sarah Wilson",
+    lastseen: "Online",
+    message:
+      "Your loyalty points are about to expire. Use them before [expiry_date]!",
+    time: "2:45 PM",
+    profilepic: "https://randomuser.me/api/portraits/women/6.jpg",
+  },
+  {
+    username: "David Taylor",
+    lastseen: "Today at 9:00 AM",
+    message: "We've missed you! Here's a special comeback offer just for you.",
+    time: "1:15 PM",
+    profilepic: "https://randomuser.me/api/portraits/men/7.jpg",
+  },
+];
 
-const SMSEdit = ({ content, parameters, onInputChange, main_url,
-  selected_SMS,
-  setselected_SMS,
-
- }) => {
+const SMSEdit = ({ content, parameters, onInputChange, main_url }) => {
   const [activeLink, setActiveLink] = useState("loyaltty");
-  const { data: templatedata, isLoading: isblogsloading } =
-  useGetAllSMSTemplatesQuery();
-  const whatsappTemplatesData = templatedata?.data
-  
   const [customLink, setCustomLink] = useState("");
   const [messageContent, setMessageContent] = useState({
     storeName: "Pizza Mania",
@@ -94,7 +139,7 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url,
   const copyToClipboard = async () => {
     const linkToCopy =
       activeLink === "loyaltty"
-        ? `64.227.154.213:4040/lp/${main_url}`
+        ? `143.110.252.166:4040/lp/${main_url}`
         : customLink;
 
     try {
@@ -107,26 +152,6 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url,
       timeoutRef.current = setTimeout(() => setCopyStatus("idle"), 2000);
     }
   };
-
-
-
-
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
-
-  // Function to handle template selection
-  const handleTemplateSelect = (template) => {
-    setSelectedTemplate(template);
-  };
-
-  // Function to handle confirm action
-  const handleConfirm = () => {
-    if (selectedTemplate) {
-      setselected_SMS(selectedTemplate); // Update the selected template
-      toggleModal(); // Close the modal
-      setSelectedTemplate(null);
-    }
-  };
-
 
   return (
     <>
@@ -223,16 +248,12 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url,
                   }
                   // return <span key={index}>{part}</span>;
                 })}
-                Click{" "}
-                {activeLink === "loyaltty"
-                  ? `${main_url}`
-                  : customLink}{" "}
-                via loyaltty
+               
               </div>
               <p className="why-link-button">Why can't I edit everything?</p>
             </div>
           </div>
-          <div
+          {/* <div
             onClick={toggleDropdown}
             className="md:hidden w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 flex justify-between items-center cursor-pointer text-base"
           >
@@ -242,7 +263,7 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url,
             ) : (
               <ChevronDown size={20} />
             )}
-          </div>
+          </div> */}
           {/* <div
             ref={contentRef}
             className={`mt-2 md:mt-4 space-y-2 md:space-y-6 ${
@@ -272,7 +293,7 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url,
                 </button>
               </div>
               {activeLink === "loyaltty" ? (
-                <div className="link">64.227.154.213:4040/lp/{main_url}</div>
+                <div className="link">143.110.252.166:4040/lp/{main_url}</div>
               ) : (
                 <div className="custom-link-wrapper">
                   <input
@@ -311,33 +332,27 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url,
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4 sm:p-0">
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4">
           <div
             ref={modalRef}
-            className="bg-white rounded-xl shadow-2xl w-4/5 max-w-6xl h-auto mx-auto overflow-hidden transform transition-all"
+            className="bg-white rounded-xl shadow-2xl w-full max-w-6xl h-auto mx-auto overflow-hidden transform transition-all"
           >
-            <div className="bg-gray-50 px-8 py-6 border-b border-gray-200">
-              <h2 className="text-3xl font-semibold text-gray-800">
+            <div className="bg-gray-50 px-4 sm:px-8 py-4 sm:py-6 border-b border-gray-200">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-800">
                 SMS Templates
               </h2>
-              {selectedTemplate && (
-                <button
-                  onClick={handleConfirm}
-                  className="flex p-1 mt-5 md:mt-0 text-xl items-center justify-center text-white border-solid bg-[#040869] border-[2.008px] border-black border-opacity-10 min-h-[52px] rounded-[32.131px] w-full md:w-[200px] md:max-w-[364px] md:absolute md:bottom-5 md:left-1/2 md:transform md:-translate-x-1/2"
-                >
-                  Select
-                </button>
-              )}
             </div>
-            <div className="p-8 overflow-y-auto" style={{ maxHeight: "80vh" }}>
+            <div className="p-4 sm:p-8 lg:p-12 overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
               <div
-                className="grid auto-cols-fr auto-rows-fr"
+                className="grid gap-4 sm:gap-6 lg:gap-8"
                 style={{
-                  gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
                 }}
               >
                 {whatsappTemplatesData.map((template, index) => (
-                  <WhatsappTemplates key={index}  onClick={() => handleTemplateSelect(template)} {...template} />
+                  <div key={index} className="flex justify-center">
+                    <WhatsappTemplates {...template} />
+                  </div>
                 ))}
               </div>
             </div>

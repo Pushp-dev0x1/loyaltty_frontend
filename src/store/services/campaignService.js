@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const campaignService = createApi({
     reducerPath: 'campaignService',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://64.227.154.213:5500/api', // Base URL for your API
+        baseUrl: 'http://143.110.252.166:5500/api', // Base URL for your API
         prepareHeaders: (headers, { getState }) => {
             const state = getState();
             const token = state?.auth?.token;

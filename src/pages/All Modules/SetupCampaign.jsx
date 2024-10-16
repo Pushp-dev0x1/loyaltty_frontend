@@ -15,7 +15,7 @@ const SetupCampaign = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     } else {
-      navigate("/SelectTemplates");
+      navigate("/select-templates");
     }
   };
 
