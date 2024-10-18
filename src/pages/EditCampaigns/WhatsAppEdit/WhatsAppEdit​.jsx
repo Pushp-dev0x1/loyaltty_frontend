@@ -144,10 +144,7 @@ const WhatsAppEdit = ({
   }, []);
 
   const copyToClipboard = async () => {
-    const linkToCopy =
-      activeLink === "loyaltty"
-        ? `${main_url}`
-        : customLink;
+    const linkToCopy = activeLink === "loyaltty" ? `${main_url}` : customLink;
 
     try {
       await navigator.clipboard.writeText(linkToCopy);
@@ -219,26 +216,6 @@ const WhatsAppEdit = ({
               </div>
 
               <div>
-                {/* {
-                  content.split(/(\{\{\d+\}\})/).map((part, index) => {
-                    const match = part.match(/\{\{(\d+)\}\}/);
-                    if (match) {
-                      const paramIndex = match[1];
-                      return (
-                        <span
-                          key={index}
-                          contentEditable
-                          suppressContentEditableWarning
-                          onInput={(e) => onInputChange(paramIndex, e.target.innerText)}
-                        >
-                          {parameters[paramIndex]}
-                        </span>
-                      );
-                    }
-                    return part;
-                  })
-                } */}
-
                 {content.split(/(\{\{\d+\}\})/).map((part, index) => {
                   const match = part.match(/\{\{(\d+)\}\}/);
                   if (match) {
@@ -257,94 +234,15 @@ const WhatsAppEdit = ({
                           onChange={(e) =>
                             onInputChange(paramIndex, e.target.value)
                           }
-                          // style={{ border: '1px solid #ccc', padding: '4px', margin: '0 4px' }}
                         />
                       </span>
                     );
                   }
-                  // return <span key={index}>{part}</span>;
                 })}
               </div>
               <p className="why-link-button">Why can't I edit everything?</p>
             </div>
           </div>
-          {/* <div
-            onClick={toggleDropdown}
-            className="md:hidden w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 flex justify-between items-center cursor-pointer"
-          >
-            <span className="text-base">
-              {isDropdownOpen ? "Hide Details" : "View More"}
-            </span>
-            {isDropdownOpen ? (
-              <ChevronUp size={20} />
-            ) : (
-              <ChevronDown size={20} />
-            )}
-          </div> */}
-          {/* <div
-            ref={contentRef}
-            className={`mt-2 md:mt-4 space-y-2 md:space-y-6 ${
-              isDropdownOpen ? "block" : "hidden"
-            } md:block`}
-          >
-            <div className="editDivs">
-              <h3>Campaign link</h3>
-              <div className="primary-button-group">
-                <button
-                  className={
-                    activeLink === "loyaltty"
-                      ? "active-custom-btn"
-                      : "custom-btn"
-                  }
-                  onClick={() => handleLinkChange("loyaltty")}
-                >
-                  Loyaltty Link
-                </button>
-                <button
-                  className={
-                    activeLink === "custom" ? "active-custom-btn" : "custom-btn"
-                  }
-                  onClick={() => handleLinkChange("custom")}
-                >
-                  Custom Link
-                </button>
-              </div>
-              {activeLink === "loyaltty" ? (
-                <div className="link">143.110.252.166:4040/lp/{main_url}</div>
-              ) : (
-                <div className="custom-link-wrapper">
-                  <input
-                    type="text"
-                    value={customLink}
-                    onChange={handleCustomLinkChange}
-                    placeholder="Enter your custom link"
-                    className="custom-link-input textarea"
-                  />
-                </div>
-              )}
-              <h5>This link will take your customer to the campaign page.</h5>
-              <button
-                className={`copy-btn ${
-                  copyStatus === "copied"
-                    ? "bg-green-500"
-                    : copyStatus === "error"
-                    ? "bg-red-500"
-                    : ""
-                }`}
-                onClick={copyToClipboard}
-                disabled={copyStatus !== "idle"}
-              >
-                {copyStatus === "idle" && <Copy size={20} />}
-                {copyStatus === "copied" && <Check size={20} />}
-                {copyStatus === "error" && <Copy size={20} />}
-                <span className="ml-2">
-                  {copyStatus === "idle" && "Copy"}
-                  {copyStatus === "copied" && "Copied!"}
-                  {copyStatus === "error" && "Failed to copy"}
-                </span>
-              </button>
-            </div>
-          </div> */}
         </div>
       </div>
 
@@ -367,7 +265,10 @@ const WhatsAppEdit = ({
                 </button>
               )}
             </div>
-            <div className="p-4 sm:p-8 overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
+            <div
+              className="p-4 sm:p-8 overflow-y-auto"
+              style={{ maxHeight: "calc(100vh - 200px)" }}
+            >
               <div
                 className="grid gap-4 sm:gap-6 lg:gap-8"
                 style={{

@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 
-const SummaryEdit = ({formData,handleInputChange}) => {
-
-  
+const SummaryEdit = ({ formData, handleInputChange }) => {
   return (
     <>
- <div
+      <div
         className="flex-1 flex flex-col space-y-2 sm:space-y-6 overflow-y-auto max-h-[350px] sm:max-h-[350px] px-4" // Set max height and padding
         style={{ scrollbarWidth: "none" }}
       >
-       
-
         {/* Title */}
         <div className="mb-1 sm:mb-2">
           <label
@@ -89,7 +85,7 @@ const SummaryEdit = ({formData,handleInputChange}) => {
 
         {/* Headline (Auto created)​ & When does it expire?​ */}
         <div className="grid grid-cols-1 gap-2 sm:gap-6">
-        <div className="mb-2 sm:mb-6">
+          <div className="mb-2 sm:mb-6">
             <label
               htmlFor="headline"
               className="block text-sm font-semibold text-gray-700"

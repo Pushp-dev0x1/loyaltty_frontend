@@ -67,27 +67,7 @@ const SelectPlatform = ({
             </div>
           );
         })}
-
-        {/* <img
-          src={`${bannerImage}`}
-    className=" cover"
-    style={{
-      // backgroundImage: `url('${formState.bannerImage}')`,
-      // backgroundSize: 'contain', // Ensure the bannerImage covers the frame
-      // backgroundPosition: 'center',
-      // backgroundRepeat: 'no-repeat',
-      height:isMobile ? "15%": '13%', // Fill the container
-      width: '13%', // Fill the container
-      alignSelf:"center",
-      position:"absolute",
-      top:isMobile ?10:40,
-      borderRadius:10,
-      right:isMobile ?10:80
-    }}
-         / > */}
       </div>
-
-      
     </>
   );
 };

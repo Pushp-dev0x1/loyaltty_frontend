@@ -11,7 +11,15 @@ import EmailEdit from "./EmailEdit/EmailEdit​";
 import TargetCustomers from "./TargetCustomers/TargetCustomers";
 import Budget from "./Budget/Budget";
 import { useGetTemplateByIdQuery } from "../../store/services/templateService";
-import { Calendar, Wallet, MessageSquareText, UserRound } from "lucide-react";
+import {
+  Calendar,
+  Wallet,
+  MessageSquareText,
+  UserRound,
+  Clock,
+  FileText,
+  SquarePen,
+} from "lucide-react";
 import SummaryEdit from "./SummaryEdit/SummaryEdit";
 import {
   useCreateCampaignMutation,
@@ -34,7 +42,8 @@ const EditDraft = () => {
   const [createCampaign] = useCreateCampaignMutation();
   const [updateCampaign] = useUpdateCampaignMutation();
   const [finalizeCampaign] = useFinalizeCampaignMutation();
-
+  const [selected_whatsappindex, setselected_whatsappindex] = useState(null);
+  const [selected_SMSindex, setselected_SMSindex] = useState(null);
   const { data: templatedata, isLoading: isblogsloading } =
     useGetCampaignByIdQuery(id);
   const [currentStep, setCurrentStep] = useState(0);
@@ -466,15 +475,43 @@ const EditDraft = () => {
   const calculateEstimatedCost = () => {
     let estimatedCost = 0;
 
-    templatedata.data.platformDetails.forEach((platform) => {
-      if (checkedPlatforms[platform.platformId.type]) {
-        console.log(JSON.stringify(platform), "which is avaialable");
-        const price = parseFloat(10);
-        estimatedCost += price * formState.users.length;
-      }
-    });
+    if (
+      templatedata &&
+      templatedata.data &&
+      templatedata.data.platformDetails
+    ) {
+      templatedata.data.platformDetails.forEach((platform) => {
+        if (checkedPlatforms[platform.platformId.type]) {
+          console.log(JSON.stringify(platform), "which is available");
+          const price = parseFloat(10);
+          estimatedCost += price * formState.users.length;
+        }
+      });
+    }
 
     return estimatedCost.toFixed(2);
+  };
+
+  const calculateEachCost = () => {
+    let platformCosts = {};
+
+    if (
+      templatedata &&
+      templatedata.data &&
+      templatedata.data.platformContents
+    ) {
+      templatedata.data.platformContents.forEach((platform) => {
+        if (checkedPlatforms[platform.platformId.type]) {
+          const price = parseFloat(platform.price.$numberDecimal);
+          const cost = price * formState.users.length;
+
+          // Store the cost for each platform type
+          platformCosts[platform.platformId.type] = cost.toFixed(2);
+        }
+      });
+    }
+
+    return platformCosts;
   };
 
   const renderPreview = () => {
@@ -496,10 +533,17 @@ const EditDraft = () => {
       return (
         <aside className="flex-1 bg-blue-50 rounded-2xl p-6 shadow-lg flex flex-col justify-center items-center overflow-y-auto max-h-full">
           <Budget
+            setStep={setCurrentStep}
+            currentStep={currentStep}
             onInputChange={(e) =>
               handleChange({ target: { value: e, name: "scheduledTime" } })
             }
+            users={formState.users}
+            checkedPlatforms={checkedPlatforms}
+            setCheckedPlatforms={setCheckedPlatforms}
+            templatedata={templatedata}
             estimatedCost={calculateEstimatedCost}
+            eachPlatformCost={calculateEachCost}
           />
         </aside>
       );
@@ -691,29 +735,8 @@ const EditDraft = () => {
 
     <main className="flex md:px-16  bg-zinc-100 max-md:px-5 max-md:pb-24  items-center justify-center ">
       {show_summary ? (
-        <div className="w-full max-w-8xl bg-[#ffffff] rounded-3xl shadow-xl p-4 sm:p-6 flex flex-col md:flex-row justify-between gap-4 sm:gap-6 items-start h-full">
-          <div className="w-full md:w-2/5 h-full overflow-y-auto pr-2 sm:pr-4">
-            <h2 className="text-3xl font-bold mb-2 text-[#040869]">Loyaltty</h2>
-            <div className="w-full h-1 rounded-full mb-4">
-              <div className="w-full bg-[#040869] h-1 rounded-full" />
-            </div>
-            <h3 className="text-2xl font-bold mb-1">Summary</h3>
-            <p className="mb-4 text-base text-gray-600">
-              Customize your campaign details and pricing plans
-            </p>
-            <SummaryEdit
-              formData={emailPlatformDetails.parameters}
-              handleInputChange={(e) => {
-                handleInputChange(
-                  emailContent.platformId._id,
-                  e.target.name,
-                  e.target.value
-                );
-              }}
-            />
-          </div>
-
-          <div className="w-full md:w-1/3 h-full">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full max-w-7xl h-screen sm:p-4">
+          <div className="flex flex-col px-4 pt-8 pb-14 mx-auto w-full bg-white  md:w-[600px]  rounded-3xl border border-solid border-neutral-300 md:px-5  mt-5 md:mt-10 max-md:max-w-full md:max-h-[80vh] md:min-h-[80vh] ">
             <MainPreviewTemplate
               checkedPlatforms={checkedPlatforms}
               formdata={emailPlatformDetails.parameters}
@@ -725,7 +748,7 @@ const EditDraft = () => {
               main_url={main_url}
             />
           </div>
-          <div className="w-full md:w-1/4 h-full space-y-4 sm:space-y-6 p-2 sm:p-4 shadow-lg rounded-2xl bg-[#F6F6F7] overflow-y-auto">
+          {/* <div className="w-full md:w-1/4 h-full space-y-4 sm:space-y-6 p-2 sm:p-4 shadow-lg rounded-2xl bg-[#F6F6F7] overflow-y-auto">
             <div className="flex items-center bg-white p-2 sm:p-3 rounded-xl shadow-md">
               <Wallet className="mr-3 text-[#040869]" size={24} />
               <div>
@@ -756,14 +779,14 @@ const EditDraft = () => {
                 </p>
               </div>
               <div className="space-y-2 ml-6">
-                {/* {selectedDates.map((date, index) => ( */}
+                {selectedDates.map((date, index) => (
                 <div className="flex items-center">
                   <Calendar size={14} className="mr-2 text-[#040869]" />
                   <span className="text-[#040869] text-sm">
                     {formState.scheduledTime.replace("T", " ")}
                   </span>
                 </div>
-                {/* ))} */}
+                ))}
               </div>
             </div>
 
@@ -776,6 +799,116 @@ const EditDraft = () => {
               </button>
               <button
                 className="bg-[#040869] text-white rounded-lg py-2 px-4 font-semibold hover:bg-[#0a0d36] transition-colors duration-300"
+                onClick={() => handleSubmitCampaign()}
+              >
+                Submit
+              </button>
+            </div>
+          </div> */}
+
+          <div className="flex flex-col px-4 pt-8 pb-14 mx-auto w-full bg-white  md:w-[600px]  rounded-3xl border border-solid border-neutral-300 md:px-5  mt-5 md:mt-10 max-md:max-w-full md:max-h-[80vh] md:min-h-[80vh] ">
+            <div className="flex flex-col space-y-4 w-full">
+              <div className="flex gap-2 w-full">
+                <div className="w-1/2 flex items-center bg-[#E6F7FF] rounded-lg p-3 flex-1 border-[0.5px] border-[#007e7d]">
+                  <Wallet className="mr-2 w-6 h-6 text-[#b96518]" />
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800">
+                      Estimate Cost:
+                    </p>
+                    <p className="text-sm font-bold text-[#007e7d]">
+                      $ {calculateEstimatedCost()}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="w-1/2 flex items-center bg-[#fff8f0] rounded-lg p-3 border-[0.5px] border-[#b96518]">
+                  <FileText className="w-6 h-6 mr-2 text-[#b96518]" />
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800">
+                      Total No. Selected:
+                    </p>
+                    <p className="text-sm font-bold text-[#007e7d]">200</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex border-2 p-3 rounded-lg bg-gray-100">
+                <div className="flex items-center flex-1 border-r-2 border-gray-200">
+                  <Clock className="w-6 h-6 mr-2 text-[#b96518]" />
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800">
+                      Campaign Schedule:
+                    </p>
+                    <p className="text-sm font-bold text-[#007e7d]">
+                      {formState.scheduledTime.replace("T", " ")}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-1 ml-4 gap-2">
+                  <p className="text-sm font-semibold text-gray-800 mb-2">
+                    To be used
+                  </p>
+                  <div className="flex justify-between gap-4">
+                    <div className="flex flex-col items-center">
+                      <img
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/955b66fbf0f91ff53047e485a2e2f52b4b90675a14ba86b942d0b65fdd9cda8a?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f"
+                        alt="SMS"
+                        className="w-6 h-6 mb-1"
+                      />
+                      <span className="text-sm font-medium">200</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <img
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/ccfdca0b8f4a8882d438a4bcfb7d0977e85429c0e35245f44a752a0cc95cad03?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f"
+                        alt="Email"
+                        className="w-6 h-6 mb-1"
+                      />
+                      <span className="text-sm font-medium">200</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <img
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/eedee36cff5fc292dceae6980b1fda5b74659ce945c0feb2cad04c718988ae92?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f"
+                        alt="WhatsApp"
+                        className="w-6 h-6 mb-1"
+                      />
+                      <span className="text-sm font-medium">150</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-100 rounded-lg p-4 border overflow-y-scroll border-gray-200 shadow-sm">
+                <div className="flex justify-between items-center mb-1">
+                  <p className="text-sm font-semibold text-gray-800">Summary</p>
+                  <SquarePen className="w-4 h-4 text-[#b96518] cursor-pointer" />
+                </div>
+                <p className="text-sm text-gray-500 mb-2">
+                  Customize your campaign details and pricing plans
+                </p>
+
+                <SummaryEdit
+                  formData={emailPlatformDetails.parameters}
+                  handleInputChange={(e) => {
+                    handleInputChange(
+                      emailContent.platformId._id,
+                      e.target.name,
+                      e.target.value
+                    );
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-between mt-4">
+              <button
+                className="bg-white text-[#040869] rounded-full py-3 px-8 text-base font-semibold border border-[#040869] hover:bg-[#040869] hover:text-white transition-colors duration-300"
+                onClick={() => setshow_summary(false)}
+              >
+                Back
+              </button>
+              <button
+                className="bg-[#040869] text-white rounded-full py-3 px-8 text-base font-semibold hover:bg-[#0a0d36] transition-colors duration-300"
                 onClick={() => handleSubmitCampaign()}
               >
                 Submit
@@ -807,7 +940,7 @@ const EditDraft = () => {
 
                   <button
                     onClick={handleContinueClick}
-                    className="flex p-2 mt-5 md:mt-0 text-3xl items-center justify-center text-white border-solid bg-[#040869] border-[2.008px] border-black border-opacity-10 min-h-[64px] rounded-[32.131px] w-full md:w-[400px] md:max-w-[564px] md:absolute md:bottom-5 md:left-1/2 md:transform md:-translate-x-1/2"
+                    className="flex p-2 mt-5 md:mt-0 text-3xl items-center justify-center text-white border-solid bg-[#040869] border-[2.008px] border-black border-opacity-10 min-h-[52px] rounded-[32.131px] w-full md:w-[300px] md:max-w-[564px] md:absolute md:bottom-5 md:left-1/2 md:transform md:-translate-x-1/2"
                   >
                     <span className="text-xl md:text-xl h-full flex items-center justify-center w-full">
                       Continue

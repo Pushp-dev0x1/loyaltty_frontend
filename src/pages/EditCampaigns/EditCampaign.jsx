@@ -41,8 +41,8 @@ const EditCampaign = () => {
   const [createCampaign] = useCreateCampaignMutation();
   const [updateCampaign] = useUpdateCampaignMutation();
   const [finalizeCampaign] = useFinalizeCampaignMutation();
-const [selected_whatsappindex, setselected_whatsappindex] = useState(null)
-const [selected_SMSindex, setselected_SMSindex] = useState(null)
+  const [selected_whatsappindex, setselected_whatsappindex] = useState(null);
+  const [selected_SMSindex, setselected_SMSindex] = useState(null);
   const { data: templatedata, isLoading: isblogsloading } =
     useGetTemplateByIdQuery(id);
   const [currentStep, setCurrentStep] = useState(0);
@@ -116,7 +116,7 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
       contactno: formState.contactno,
       rewardtype: formState.rewardtype,
       step: currentStep + 1,
-      url: main_url.replace("http://143.110.252.166:4040/lp/",""),
+      url: main_url.replace("http://143.110.252.166:4040/lp/", ""),
     }).unwrap();
     console.log("main resp", response);
     setmain_url(`http://143.110.252.166:4040/lp/${response.url}`);
@@ -263,7 +263,8 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
               parameters: {
                 title: templatedata.data.title || "New Title",
                 subject: templatedata.data.title || "New Offer",
-                terms: "2 offers cannot be clubbed.\nReward cannot be exchanged for cash.",
+                terms:
+                  "2 offers cannot be clubbed.\nReward cannot be exchanged for cash.",
                 description:
                   templatedata.data.description || "Testing Description",
               },
@@ -374,7 +375,12 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
         );
       case "CreateDesign":
         return (
-          <CreateDesign formData={formState} main_url={main_url} setmain_url={setmain_url} handleInputChange={handleChange} />
+          <CreateDesign
+            formData={formState}
+            main_url={main_url}
+            setmain_url={setmain_url}
+            handleInputChange={handleChange}
+          />
         );
       case "WhatsAppEdit":
         return (
@@ -384,13 +390,13 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
             setselected_Whatsapp={setselected_Whatsapp}
             main_url={main_url}
             parameters={whatsappContent.parameters}
-            onInputChange={(paramIndex, value) =>
-              {handleInputChange(
+            onInputChange={(paramIndex, value) => {
+              handleInputChange(
                 whatsappContent.platformId._id,
                 paramIndex,
                 value
               );
-              setselected_whatsappindex(paramIndex)
+              setselected_whatsappindex(paramIndex);
             }}
           />
         );
@@ -400,10 +406,10 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
             content={smsContent.content}
             parameters={smsContent.parameters}
             main_url={main_url}
-            onInputChange={(paramIndex, value) =>
-              {handleInputChange(smsContent.platformId._id, paramIndex, value)
-              setselected_SMSindex(paramIndex)}
-            }
+            onInputChange={(paramIndex, value) => {
+              handleInputChange(smsContent.platformId._id, paramIndex, value);
+              setselected_SMSindex(paramIndex);
+            }}
           />
         );
       case "EmailEdit":
@@ -484,8 +490,8 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
     if (currentStep >= 1 && currentStep <= steps.length - 2) {
       return (
         <MainPreviewTemplate
-        selectedwhatsappIndex={selected_whatsappindex}
-        selected_SMSindex={selected_SMSindex}
+          selectedwhatsappIndex={selected_whatsappindex}
+          selected_SMSindex={selected_SMSindex}
           checkedPlatforms={checkedPlatforms}
           defaultButton={rendertempleStep()}
           formdata={emailPlatformDetails.parameters}
@@ -777,8 +783,6 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
     <main className="flex md:px-16  bg-zinc-100 max-md:px-5 max-md:pb-24  items-center justify-center ">
       {show_summary ? (
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full max-w-7xl h-screen sm:p-4">
-          
-
           <div className="flex flex-col px-4 pt-8 pb-14 mx-auto w-full bg-white  md:w-[600px]  rounded-3xl border border-solid border-neutral-300 md:px-5  mt-5 md:mt-10 max-md:max-w-full md:max-h-[80vh] md:min-h-[80vh] ">
             <MainPreviewTemplate
               checkedPlatforms={checkedPlatforms}
@@ -929,19 +933,17 @@ const [selected_SMSindex, setselected_SMSindex] = useState(null)
                 <p className="text-sm text-gray-500 mb-2">
                   Customize your campaign details and pricing plans
                 </p>
-               
-         
-            <SummaryEdit
-              formData={emailPlatformDetails.parameters}
-              handleInputChange={(e) => {
-                handleInputChange(
-                  emailContent.platformId._id,
-                  e.target.name,
-                  e.target.value
-                );
-              }}
-            />
-            
+
+                <SummaryEdit
+                  formData={emailPlatformDetails.parameters}
+                  handleInputChange={(e) => {
+                    handleInputChange(
+                      emailContent.platformId._id,
+                      e.target.name,
+                      e.target.value
+                    );
+                  }}
+                />
               </div>
             </div>
 
