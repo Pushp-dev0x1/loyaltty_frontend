@@ -451,6 +451,7 @@ const EditCampaign = () => {
       case "SMSEdit":
         return 2; // Lock to "SMS"
       case "EmailEdit":
+        return 3;
       default:
         return undefined;
     }
@@ -500,7 +501,10 @@ const EditCampaign = () => {
           whatsappparameters={whatsappPlatformDetails?.parameters}
           smscontent={smsContent?.content}
           smsparams={smsPlatformDetails.parameters}
+          emailcontent={emailContent?.content}
+          emailparams={emailPlatformDetails.parameters}
           main_url={main_url}
+          setCurrentStep={setCurrentStep}
         />
       );
     } else if (currentStep === steps.length - 1) {
@@ -525,79 +529,60 @@ const EditCampaign = () => {
       return !checkedPlatforms.email &&
         !checkedPlatforms.sms &&
         !checkedPlatforms.whatsapp ? (
-        <>
+          <div
+          style={{
+            width: "350px",
+           height:"800px" ,
+           padding: "20px 20px 10px",
+           borderRadius: "15px",
+           position: "relative",
+           margin: "20px auto",
+           overflow: "hidden",
+           scrollbarWidth: "none"
+          }}
+        >
           <img
-            className="relative object-contain mt-32 aspect-[1.2] flex justify-center items-center max-w-full"
+            style={{
+              objectFit: "cover", // Ensure the image fills the container proportionally
+              width: "100%",
+              height: "100%", // Fill the entire height of the container
+              borderRadius: "20px",
+            }}
             loading="lazy"
             src={formState.bannerImage}
             alt=""
-            // className="object-contain mt-64 mb-2  w-full aspect-[1.58] max-md:mt-10 max-md:max-w-full"
           />
-        </>
+        </div>
+        
+        
+        
       ) : (
-        <aside
-          className="flex-1  flex flex-col justify-end  max-h-full"
-          style={{ scrollbarWidth: "none" }}
-        >
-          {/* <div className="flex justify-center space-x-4 my-10 ">
-            {checkedPlatforms.sms && (
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/955b66fbf0f91ff53047e485a2e2f52b4b90675a14ba86b942d0b65fdd9cda8a?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f' : 'https://cdn.builder.io/api/v1/image/assets/TEMP/955b66fbf0f91ff53047e485a2e2f52b4b90675a14ba86b942d0b65fdd9cda8a?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f"
-                alt="Image 2"
-                className="w-16 h-16"
-              />
-            )}
-            {checkedPlatforms.email && (
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ccfdca0b8f4a8882d438a4bcfb7d0977e85429c0e35245f44a752a0cc95cad03?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f"
-                alt="Image 1"
-                className="w-16 h-16"
-              />
-            )}
-            {checkedPlatforms.whatsapp && (
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/eedee36cff5fc292dceae6980b1fda5b74659ce945c0feb2cad04c718988ae92?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f"
-                alt="Image 3"
-                className="w-16 h-16"
-              />
-            )}
-          </div> */}
-
-          <div
-            className="relative flex justify-center items-center max-w-full overflow-hidden"
-            style={{
-              backgroundImage: "url('/images/mobileframe.png')",
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              height: "calc(490px)", // Aspect ratio same as your image
-            }}
-          >
-            <div className="flex justify-center items-center space-x-4 my-10">
-              {checkedPlatforms.sms && (
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/955b66fbf0f91ff53047e485a2e2f52b4b90675a14ba86b942d0b65fdd9cda8a?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f' : 'https://cdn.builder.io/api/v1/image/assets/TEMP/955b66fbf0f91ff53047e485a2e2f52b4b90675a14ba86b942d0b65fdd9cda8a?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f"
-                  alt="SMS"
-                  className="w-16 h-16"
-                />
-              )}
-              {checkedPlatforms.email && (
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/ccfdca0b8f4a8882d438a4bcfb7d0977e85429c0e35245f44a752a0cc95cad03?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f"
-                  alt="Email"
-                  className="w-16 h-16"
-                />
-              )}
-              {checkedPlatforms.whatsapp && (
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/eedee36cff5fc292dceae6980b1fda5b74659ce945c0feb2cad04c718988ae92?placeholderIfAbsent=true&apiKey=d0018788f321472fb76f0852605a7e1f"
-                  alt="WhatsApp"
-                  className="w-16 h-16"
-                />
-              )}
-            </div>
-          </div>
-        </aside>
+        <div
+        style={{
+          width: "350px",
+         height:"800px" ,
+         padding: "20px 20px 10px",
+         borderRadius: "15px",
+         position: "relative",
+         margin: "20px auto",
+         overflow: "hidden",
+         scrollbarWidth: "none"
+        }}
+      >
+        <img
+          style={{
+            objectFit: "cover", // Ensure the image fills the container proportionally
+            width: "100%",
+            height: "100%", // Fill the entire height of the container
+            borderRadius: "20px",
+          }}
+          loading="lazy"
+          src={formState.bannerImage}
+          alt=""
+        />
+      </div>
+      
+       
       );
     }
   };
@@ -792,7 +777,11 @@ const EditCampaign = () => {
               whatsappparameters={whatsappPlatformDetails?.parameters}
               smscontent={smsContent?.content}
               smsparams={smsPlatformDetails.parameters}
+              emailcontent={emailContent?.content}
+              emailparams={emailPlatformDetails.parameters}
               main_url={main_url}
+              setCurrentStep={setCurrentStep}
+              
             />
           </div>
           {/* <div className="w-full md:w-1/4 h-full space-y-4 sm:space-y-6 p-2 sm:p-4 shadow-lg rounded-2xl bg-[#F6F6F7] overflow-y-auto">

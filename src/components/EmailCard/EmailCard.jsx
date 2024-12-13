@@ -1,6 +1,6 @@
 import React from "react";
 
-const SmsCard = ({ content, parameters, main_url,activeParameterIndex }) => {
+const EmailCard = ({ content, parameters, main_url,activeParameterIndex }) => {
   const mergeContentWithParameters = () => {
     if (!content || !parameters) return content;
 
@@ -28,7 +28,9 @@ const SmsCard = ({ content, parameters, main_url,activeParameterIndex }) => {
     <div className="sms-preview-card">
       <div className="preview-sms-card">
         <div className="header">
-          <div className="logo"></div>
+          <div className="logo">
+            {/* <img src="../../../public/images/logo34.png"/> */}
+          </div>
          
         </div>
         <div className="sms">
@@ -49,4 +51,4 @@ const SmsCard = ({ content, parameters, main_url,activeParameterIndex }) => {
   );
 };
 
-export default SmsCard;
+export default EmailCard;

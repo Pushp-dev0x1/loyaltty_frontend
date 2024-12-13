@@ -361,6 +361,95 @@ const EditDraft = () => {
 
   console.log(platformDetails, "main platform details");
 
+  // const renderStep = () => {
+  //   const stepComponent = steps[currentStep];
+  //   switch (stepComponent) {
+  //     case "SelectPlatform":
+  //       return (
+  //         <SelectPlatform
+  //           maindata={templatedata?.data.platformDetails}
+  //           handleCheckboxChange={handleCheckboxChange}
+  //           selectedOptions={checkedPlatforms}
+  //         />
+  //       );
+  //     case "AboutCampaign":
+  //       return (
+  //         <AboutCampaign
+  //           rewardtype={templatedata?.data.rewardtype}
+  //           formData={emailPlatformDetails.parameters}
+  //           handleInputChange={(e) => {
+  //             handleInputChange(
+  //               emailContent.platformId._id,
+  //               e.target.name,
+  //               e.target.value
+  //             );
+  //           }}
+  //         />
+  //       );
+  //     case "TermsConditions":
+  //       return (
+  //         <TermsConditions
+  //           formData={formState}
+  //           handlecontactChange={handleChange}
+  //           maildata={emailPlatformDetails.parameters}
+  //           handleInputChange={(name, value) => {
+  //             handleInputChange(emailContent.platformId._id, name, value);
+  //           }}
+  //         />
+  //       );
+  //     case "CreateDesign":
+  //       return (
+  //         <CreateDesign formData={formState} handleInputChange={handleChange} />
+  //       );
+  //     case "WhatsAppEdit":
+  //       return (
+  //         <WhatsAppEdit
+  //           main_url={main_url}
+  //           content={whatsappContent.maincontent}
+  //           parameters={whatsappContent.mainparam}
+  //           onInputChange={(paramIndex, value) =>
+  //             handleInputChange(
+  //               whatsappContent.platformId._id,
+  //               paramIndex,
+  //               value
+  //             )
+  //           }
+  //         />
+  //       );
+  //     case "SMSEdit":
+  //       return (
+  //         <SMSEdit
+  //           main_url={main_url}
+  //           content={smsContent.maincontent}
+  //           parameters={smsContent.mainparam}
+  //           onInputChange={(paramIndex, value) =>
+  //             handleInputChange(smsContent.platformId._id, paramIndex, value)
+  //           }
+  //         />
+  //       );
+  //     case "EmailEdit":
+  //       return (
+  //         <EmailEdit
+  //         main_url={main_url}
+  //         content={emailContent.maincontent}
+  //         parameters={emailContent.mainparam}
+  //         onInputChange={(paramIndex, value) =>
+  //           handleInputChange(emailContent.platformId._id, paramIndex, value)
+  //         }
+  //       />
+  //       );
+  //     case "TargetCustomers":
+  //       return (
+  //         <TargetCustomers
+  //           selectedUsers={formState.users}
+  //           setSelectedUsers={handleUsersChange}
+  //         />
+  //       );
+  //     default:
+  //       return null;
+  //   }
+  // };
+
   const renderStep = () => {
     const stepComponent = steps[currentStep];
     switch (stepComponent) {
@@ -430,13 +519,10 @@ const EditDraft = () => {
       case "EmailEdit":
         return (
           <EmailEdit
-            formData={emailPlatformDetails.parameters}
+            formData={formState}
             handleInputChange={(e) => {
-              handleInputChange(
-                emailContent.platformId._id,
-                e.target.name,
-                e.target.value
-              );
+              const { name, value } = e.target;
+              handleInputChange(emailContent.platformId._id, name, value);
             }}
           />
         );
@@ -451,6 +537,7 @@ const EditDraft = () => {
         return null;
     }
   };
+  
 
   const rendertempleStep = () => {
     const stepComponent = steps[currentStep];
@@ -526,6 +613,9 @@ const EditDraft = () => {
           whatsappparameters={whatsappPlatformDetails?.parameters}
           smscontent={smsContent?.maincontent}
           smsparams={smsPlatformDetails.parameters}
+          emailcontent={emailContent?.maincontent}
+          emailparams={emailPlatformDetails.parameters}
+          setCurrentStep={setCurrentStep}
           main_url={main_url}
         />
       );
@@ -745,6 +835,9 @@ const EditDraft = () => {
               whatsappparameters={whatsappPlatformDetails?.parameters}
               smscontent={smsContent?.content}
               smsparams={smsPlatformDetails.parameters}
+              emailcontent={emailContent?.content}
+              emailparams={emailPlatformDetails.parameters}
+              setCurrentStep={setCurrentStep}
               main_url={main_url}
             />
           </div>
@@ -887,7 +980,7 @@ const EditDraft = () => {
                   Customize your campaign details and pricing plans
                 </p>
 
-                <SummaryEdit
+                {/* <SummaryEdit
                   formData={emailPlatformDetails.parameters}
                   handleInputChange={(e) => {
                     handleInputChange(
@@ -896,7 +989,7 @@ const EditDraft = () => {
                       e.target.value
                     );
                   }}
-                />
+                /> */}
               </div>
             </div>
 

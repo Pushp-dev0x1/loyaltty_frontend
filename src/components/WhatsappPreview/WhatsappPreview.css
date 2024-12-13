@@ -1,0 +1,53 @@
+.outer-div {
+    position: relative;
+    height: 100%;
+    overflow-y: auto; /* To allow scrolling for the content */
+  }
+  
+  .visible-screen {
+    position: relative;
+  }
+  
+  .sticky-header {
+    position: sticky;
+    top: 0; /* Sticks at the top of its nearest scrollable parent */
+    background-color: #ffffff; /* Ensure a background for the header */
+    z-index: 10; /* Keep the header above other elements */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px; /* Add padding for spacing */
+    border-bottom: 1px solid #ccc; /* Optional: Add a border for better distinction */
+  }
+  
+  .logo-div img {
+    height: 40px; /* Adjust size as needed */
+    width: auto;
+  }
+  
+  .msg-container {
+    padding: 10px;
+  }
+  
+  .msg {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  a.btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  a.btn:hover {
+    background-color: #0056b3;
+  }
+  

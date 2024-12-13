@@ -1,0 +1,6 @@
+/* Add this CSS to your stylesheet */
+.no-scrollbar {
+    overflow: hidden; /* Disables both vertical and horizontal scrollbars */
+  }
+
+  

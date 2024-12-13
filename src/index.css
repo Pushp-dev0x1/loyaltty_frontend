@@ -87,7 +87,7 @@ border-width: 1px;
   font-weight: bold;
 }
 
-.edit-camp-card{
+/* .edit-camp-card{
   width: 300px;
   height: max-content;
   padding-bottom: 25px;
@@ -95,20 +95,31 @@ border-width: 1px;
   position: relative;
   margin: 10 auto;
   box-shadow: 5px 6px 20px #6060604f;
+} */
+
+.edit-camp-card {
+  /* height: 800px !important; */
+  width: 400px;  /* Keeping the increased width */
+  /* padding: 20px 30px 30px;  */
+  border-radius: 15px;
+  position: relative;
+  margin: 20px auto;  /* Increased margin for spacing */
+  box-shadow: 5px 6px 20px #6060604f;  /* Retained the shadow */
 }
+
 
 .edit-camp-card .card-header,
 .edit-no-discount-camp-card .card-header {
-  top: 0;
-  right: 0;
-  left: 0;
+  top: 01;
+  right: 1;
+  left: 1;
   width: 100%;
   height: 200px;
-  padding: 0;
+  padding: 1;
   overflow: hidden;
   position: relative;
   border-radius: 15px;
-  clip-path: ellipse(70% 90% at 52% 0%);
+  clip-path: ellipse(80% 90% at 52% 0%);
 }
 .edit-camp-card .card-header-email,
 .edit-no-discount-camp-card .card-header-email {
@@ -148,7 +159,7 @@ border-width: 1px;
 .edit-camp-card .card-header .react-transform-wrapper .react-transform-component .banner_image,
 .edit-no-discount-camp-card .card-header .react-transform-wrapper .react-transform-component .banner_image {
   width: 100%;
-  margin: 0 0 0 auto;
+  margin: 2 2 2 ;
 }
 
 .edit-camp-card .card-header .info-tag,
@@ -208,17 +219,19 @@ border-width: 1px;
 
 .edit-camp-card .card-content,
 .edit-no-discount-camp-card .card-content {
-  padding: 0 25px;
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .edit-camp-card .card-content .camptitle,
 .edit-no-discount-camp-card .card-content .camptitle {
-  font-size: 26px !important;
-  line-height: 35px !important;
-  text-align: center !important;
-  word-wrap: break-word;
-  position: relative;
-  font-family: BasierCircleSemiBold;
+  font-size: 20px !important;
+    line-height: 25px !important;
+    text-align: center !important;
+    word-wrap: break-word;
+    position: relative;
+    font-family: BasierCircleSemiBold;
 }
 .edit-camp-card .card-content .camptitle-emailtitle,
 .edit-no-discount-camp-card .card-content .camptitle-emailtitle {
@@ -382,10 +395,10 @@ border-width: 1px;
 
 /* sms card */
 .sms-preview-card {
-  /* height: 100%; */
+  height: 100%;
   width: 400px;
   position: relative;
-  margin-top: 40px;
+  margin-top: 100px;
   /* margin: 24px auto 0; */
 }
 
@@ -413,7 +426,12 @@ border-width: 1px;
   color: #213037;
   border-radius: 50%;
   text-align: center;
-  background-color: #33c1c0;
+  /* background-color: #33c1c0; */
+  background-image: url("../public/images/logo30.png");
+  background-size: 50%; /* Adjust this value as needed */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-position: center; /* Center the image */
+   box-shadow: 0px 4px 6px rgba(173, 216, 230, 0.8); /* Light blue shadow */
 }
 
 .sms-preview-card .preview-sms-card .header p {
@@ -493,6 +511,7 @@ border-width: 1px;
 /* whatsapp preview */
 .whatsapp-preview .outer-div {
   width: 35vh;
+  margin-top: 0px;
   
   /* height: 100vh; */
 

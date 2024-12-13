@@ -416,14 +416,16 @@ const NewCampaign = () => {
       case "EmailEdit":
         return (
           <EmailEdit
-            formData={emailPlatformDetails.parameters}
-            handleInputChange={(e) => {
-              handleInputChange(
-                emailContent.platformId._id,
-                e.target.name,
-                e.target.value
-              );
-            }}
+          content={emailContent.content}
+          parameters={emailContent.parameters}
+          main_url={main_url}
+          onInputChange={(paramIndex, value) =>
+            handleInputChange(
+              emailContent.platformId._id,
+              paramIndex,
+              value
+            )
+          }
           />
         );
       case "TargetCustomers":
@@ -523,6 +525,8 @@ const NewCampaign = () => {
           whatsappparameters={whatsappPlatformDetails?.parameters}
           smscontent={smsContent?.content}
           smsparams={smsPlatformDetails.parameters}
+          emailcontent={emailContent?.maincontent}
+          emailparams={emailPlatformDetails.parameters}
           main_url={main_url}
         />
       );
@@ -538,8 +542,8 @@ const NewCampaign = () => {
         </aside>
       );
     } else {
-      return (  <aside className="flex-1  max-md:p-1 max-lg:p-6 flex flex-col justify-center items-center overflow-y-auto max-h-full">
-        <div className="campaign-type-selector bg-transparent rounded-xl p-4 w-full max-w-2xl">
+      return (  <aside className="flex-1  max-md:p-1 max-lg:p-2 flex flex-col justify-center items-center overflow-hidden max-h-full">
+        <div className="campaign-type-selector bg-transparent rounded-xl p-0 w-full max-w-xl">
           <h1 className="text-sm sm:text-xl font-semibold leading-loose text-center text-gray-900 max-md:max-w-full">
          What type of campaign do you want to run?
           </h1>
@@ -561,9 +565,9 @@ const NewCampaign = () => {
   };
 
   const ProgressBar = ({ currentStep }) => (
-    <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+    <div className="w-full bg-gray-200 rounded-full h-0 mt-0">
       <div
-        className="bg-[#040869] h-2 rounded-full transition-all duration-500 ease-in-out"
+        className="bg-[#040869] h-1 rounded-full transition-all duration-500 ease-in-out"
         style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
       />
     </div>
@@ -750,7 +754,7 @@ const NewCampaign = () => {
   <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full max-w-7xl h-screen sm:p-4  ">
     <div className="flex gap-3 max-md:flex-col ">
       <section className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full ">
-        <div className="flex flex-col max-md:px-2 max-lg:px-4 pt-8 pb-14 mx-auto w-full bg-white  md:w-[600px]  rounded-3xl border border-solid border-neutral-300 md:px-5  mt-5 md:mt-10 max-md:max-w-full md:max-h-[80vh] md:min-h-[80vh] ">
+        <div className="flex flex-col max-md:px-1 max-lg:px-2 pt-4 pb-10 mx-auto w-full bg-white  md:w-[600px]  rounded-3xl border border-solid border-neutral-300 md:px-5  mt-5 md:mt-10 max-md:max-w-full md:max-h-[80vh] md:min-h-[80vh] ">
 
           <ProgressIndicator onbackpress={handleBackClick} currentStep={currentStep + 1} totalSteps={steps.length} />
           {renderPreview()}
@@ -764,9 +768,9 @@ const NewCampaign = () => {
             <iframe src="https://lottie.host/embed/2e7ca909-46f6-4b81-9b5f-38f88c80a91c/7xYyDsUrfG.json"></iframe>
           </div> :
           <div className="relative flex flex-col  mx-auto w-full md:w-[600px] text-base text-gray-500 bg-white rounded-3xl border border-solid border-neutral-300 max-md:px-5 md:mt-10 max-md:max-w-full md:max-h-[80vh] md:min-h-[80vh] overflow-y-auto">
-            {/* <div className="flex-1 overflow-y-auto"> */}
+            <div className="flex-1 overflow-y-auto">
               {renderStep()}
-            {/* </div> */}
+            </div>
 
           
           </div>

@@ -146,13 +146,13 @@ const styles = `
     height: 100%;
     object-fit: cover;
   }
-  .card-content {
-    padding: 30px 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+  // .card-content {
+  //   padding: 30px 20px;
+  //   flex-grow: 1;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: space-between;
+  // }
   .camptitle {
     font-size: 26px;
     margin-bottom: 15px;

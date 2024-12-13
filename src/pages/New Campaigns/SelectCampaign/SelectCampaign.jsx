@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import { MessageSquare, Mail, MessagesSquare } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import {
-  useGetAllActiveTemplatesQuery,
-  useGetTemplatesByCategoryQuery,
   useGetTemplatesByRewardTypeQuery,
 } from "../../../store/services/templateService";
-import PromotionalCard from "../../../components/Card/PromotionalCard";
 import SmallPromotionalCard from "../../../components/Card/SmallPromotionalCard";
 
 const SelectCampaign = ({
@@ -17,6 +14,7 @@ const SelectCampaign = ({
   const { data: allcards, isLoading: isblogsloading } =
     useGetTemplatesByRewardTypeQuery(selectedCampaignType);
   const [continueClicked, setcontinueClicked] = useState(false);
+
   const rendertempleStep = () => {
     switch (selectedCampaignType) {
       case "amount":
@@ -41,7 +39,7 @@ const SelectCampaign = ({
   }, [selectedCampaignType]);
 
   return (
-    <div className="rounded-xl p-4 sm:p-8 w-full max-w-3xl">
+    <div className="no-scrollbar rounded-xl p-4 sm:p-8 w-full max-w-3xl">
       <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight text-indigo-900 mb-2 sm:mb-4">
         {!continueClicked ? "Template Library" : "Select Recommended Type"}
       </h2>
@@ -55,7 +53,7 @@ const SelectCampaign = ({
             loading="lazy"
             src={rendertempleStep()}
             alt=""
-            className="object-contain w-full border border-solid rounded-[20px] sm:rounded-[35px]"
+            className="object-contain h-auto max-h-[300px] w-full border-color: rgb(255 255 255) sm:rounded-[35px]"
           />
           <button
             onClick={() => setcontinueClicked(true)}

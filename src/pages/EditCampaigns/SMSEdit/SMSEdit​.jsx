@@ -230,13 +230,13 @@ const SMSEdit = ({ content, parameters, onInputChange, main_url }) => {
                     return (
                       <span
                         key={index}
-                        className="flex flex-row mt-2 items-center bg-white border border-gray-300 rounded-full shadow-sm"
+                        className="flex items-center mt-1 bg-white border border-gray-300 rounded-full p-1"
                       >
                         {/* Display the number inside the curly braces */}
-                        <div className="ml-5">{`{{${paramIndex}}}`}</div>
+                        <div className="ml-2">{`{{${paramIndex}}}`}</div>
                         <input
                           type="text"
-                          className="w-full px-3 py-2  rounded-full  ml-5"
+                          className="w-full px-3 py-2 text-sm rounded-full ml-2 border-none outline-none"
                           placeholder={parameters[paramIndex] || ""}
                           onChange={(e) =>
                             onInputChange(paramIndex, e.target.value)

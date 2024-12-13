@@ -175,120 +175,112 @@ const WhatsAppEdit = ({
 
   return (
     <>
-      <div className="campaign-sms-right">
-        <div className="sms-fields">
-          <div className="non-editable-fields">
-            <div className="textarea-component">
-              <div className="flex justify-between items-center">
-                <div className="flex-1">
-                  <div className="textarea-heading flex items-center">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="mr-2"
-                    >
-                      <path
-                        d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16Z"
-                        fill="#040869"
-                      />
-                      <path
-                        d="M7 9H9V11H7V9ZM11 9H13V11H11V9ZM15 9H17V11H15V9Z"
-                        fill="#040869"
-                      />
-                    </svg>
-                    <h3 className="text-2xl font-semibold text-[#040869]">
-                      Edit WhatsApp Message
-                    </h3>
-                  </div>
-                  <div className="sms-length text-sm text-gray-600 mt-1">
-                    Character length: 139 / 1 credit
-                  </div>
-                </div>
-                <div className="flex-shrink-0">
-                  <BiSolidEdit
-                    className="text-3xl text-[#040869] cursor-pointer hover:text-[#060c92] transition-colors"
-                    onClick={toggleModal}
+     <div className="campaign-sms-right overflow-hidden">
+  <div className="sms-fields">
+    <div className="non-editable-fields">
+      <div className="textarea-component overflow-hidden">
+        <div className="flex justify-between items-center mb-2">
+          <div className="flex-1">
+            <div className="textarea-heading flex items-center">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="mr-2"
+              >
+                <path
+                  d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16Z"
+                  fill="#040869"
+                />
+                <path
+                  d="M7 9H9V11H7V9ZM11 9H13V11H11V9ZM15 9H17V11H15V9Z"
+                  fill="#040869"
+                />
+              </svg>
+              <h3 className="text-xl font-medium text-[#040869]">
+                Edit WhatsApp Message
+              </h3>
+            </div>
+            <div className="sms-length text-xs text-gray-600 mt-1">
+              Character length: 139 / 1 credit
+            </div>
+          </div>
+          <div className="flex-shrink-0">
+            <BiSolidEdit
+              className="text-2xl text-[#040869] cursor-pointer hover:text-[#060c92] transition-colors"
+              onClick={toggleModal}
+            />
+          </div>
+        </div>
+
+        <div>
+          {content.split(/(\{\{\d+\}\})/).map((part, index) => {
+            const match = part.match(/\{\{(\d+)\}\}/);
+            if (match) {
+              const paramIndex = match[1];
+              return (
+                <div
+                  key={index}
+                  className="flex items-center mt-1 bg-white border border-gray-300 rounded-full p-1"
+                >
+                  <span className="text-xs ml-2">{`{{${paramIndex}}}`}</span>
+                  <input
+                    type="text"
+                    className="w-full px-3 py-2 text-sm rounded-full ml-2 border-none outline-none"
+                    placeholder={parameters[paramIndex] || ""}
+                    onChange={(e) => onInputChange(paramIndex, e.target.value)}
                   />
                 </div>
-              </div>
+              );
+            }
+          })}
+        </div>
+        <p className="why-link-button text-sm mt-2">Why can't I edit everything?</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-              <div>
-
-                {content.split(/(\{\{\d+\}\})/).map((part, index) => {
-                  const match = part.match(/\{\{(\d+)\}\}/);
-                  if (match) {
-                    const paramIndex = match[1];
-                    return (
-                      <span
-                        key={index}
-                        className="flex flex-row mt-2 items-center bg-white border border-gray-300 rounded-full shadow-sm"
-                      >
-                        {/* Display the number inside the curly braces */}
-                        <div className="ml-5">{`{{${paramIndex}}}`}</div>
-                        <input
-                          type="text"
-                          className="w-full px-3 py-2  rounded-full  ml-5"
-                          placeholder={parameters[paramIndex] || ""}
-                          onChange={(e) =>
-                            onInputChange(paramIndex, e.target.value)
-                          }
-                        />
-                      </span>
-                    );
-                  }
-                })}
-              </div>
-              <p className="why-link-button">Why can't I edit everything?</p>
+{isModalOpen && (
+  <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-3">
+    <div
+      ref={modalRef}
+      className="bg-white rounded-lg shadow-lg w-full max-w-5xl p-4 overflow-hidden"
+    >
+      <div className="text-center">
+        <h2 className="text-xl font-medium text-gray-800">
+          WhatsApp Templates
+        </h2>
+        {selectedTemplate && (
+          <button
+            onClick={handleConfirm}
+            className="bg-[#040869] text-white text-base px-5 py-2 rounded-md mt-3"
+          >
+            Select
+          </button>
+        )}
+      </div>
+      <div className="p-3 overflow-hidden">
+        <div
+          className="grid gap-3"
+          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}
+        >
+          {whatsappTemplatesData.map((template, index) => (
+            <div key={index} className="flex justify-center">
+              <WhatsappTemplates
+                {...template}
+                onClick={() => handleTemplateSelect(template)}
+              />
             </div>
-          </div>
+          ))}
         </div>
       </div>
+    </div>
+  </div>
+)}
 
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4">
-          <div
-            ref={modalRef}
-            className="bg-white rounded-xl shadow-2xl w-full max-w-6xl h-auto mx-auto overflow-hidden transform transition-all"
-          >
-            <div className="bg-gray-50 px-4 sm:px-8 py-4 sm:py-6 border-b border-gray-200 text-center relative">
-              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800">
-                WhatsApp Templates
-              </h2>
-              {selectedTemplate && (
-                <button
-                  onClick={handleConfirm}
-                  className="flex p-1 mt-4 text-lg sm:text-xl items-center justify-center text-white border-solid bg-[#040869] border-[2px] border-black border-opacity-10 min-h-[40px] sm:min-h-[52px] rounded-full w-full sm:w-auto sm:px-8 mx-auto lg:absolute lg:bottom-5 lg:right-8"
-                >
-                  Select
-                </button>
-              )}
-            </div>
-            <div
-              className="p-4 sm:p-8 overflow-y-auto"
-              style={{ maxHeight: "calc(100vh - 200px)" }}
-            >
-              <div
-                className="grid gap-4 sm:gap-6 lg:gap-8"
-                style={{
-                  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                }}
-              >
-                {whatsappTemplatesData.map((template, index) => (
-                  <div key={index} className="flex justify-center">
-                    <WhatsappTemplates
-                      {...template}
-                      onClick={() => handleTemplateSelect(template)}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 };
