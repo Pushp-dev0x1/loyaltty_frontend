@@ -28,7 +28,9 @@ const WhatsappPreview = ({ content, logo, parameters, main_url, activeParameterI
 
   return (
     <>
-      <div className="whatsapp-preview overflow-hidden mt-0">
+       <div className="sms-preview-card ">
+       <div className="preview-sms-card">
+      <div className="whatsapp-preview overflow-hidden mt-5">
         <div className="outer-div">
           <div className="visible-screen">
             <div className="sticky-header">
@@ -50,6 +52,8 @@ const WhatsappPreview = ({ content, logo, parameters, main_url, activeParameterI
             </a>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     </>
   );

@@ -512,7 +512,7 @@ border-width: 1px;
 .whatsapp-preview .outer-div {
   width: 35vh;
   margin-top: 0px;
-  
+
   /* height: 100vh; */
 
 
@@ -540,6 +540,7 @@ border-width: 1px;
   background: #f1f0ed;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  /* border-top-right-radius: 16px; */
 }
 
 .whatsapp-preview .outer-div .visible-screen .sticky-header {
@@ -551,18 +552,22 @@ border-width: 1px;
   align-items: center;
   justify-content: flex-start;
   background: #038c8b;
-  border-radius: 16px 16px 0 0;
+  /* border-radius: 16px 16px 0 0; */
+
 }
 
 .whatsapp-preview .outer-div .visible-screen .sticky-header .logo-div {
   border-radius: 50%;
   background: #ffffff;
+  /* border-top-right-radius: 16px; */
 }
 
 .whatsapp-preview .outer-div .visible-screen .sticky-header .logo-div img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  /* border-top-right-radius: 16px; */
+
 }
 
 .whatsapp-preview .outer-div .visible-screen .sticky-header .wa-header {
@@ -571,18 +576,20 @@ border-width: 1px;
   color: #fff;
   line-height: 18px;
   font-family: DmSansBold;
+  /* border-top-right-radius: 16px; */
 }
 
-.whatsapp-preview .outer-div .visible-screen .msg-container {
+/* .whatsapp-preview .outer-div .visible-screen .msg-container {
   width: 100%;
   padding: 12px;
   max-width: 232px;
   border-radius: 8px;
   margin: 24px 0 0 16px;
   background: #ffffff;
-}
+  border-top-right-radius: 16px;
+} */
 
-.whatsapp-preview .outer-div .visible-screen .btn {
+/* .whatsapp-preview .outer-div .visible-screen .btn {
   width: 100%;
   padding: 8px;
   max-width: 232px;
@@ -594,7 +601,7 @@ border-width: 1px;
   line-height: 18px;
   text-align: center;
   font-family: DmSansMedium;
-}
+} */
 
 .whatsapp-preview .outer-div .visible-screen .msg-container .file-container {
   overflow: hidden;
@@ -616,6 +623,29 @@ border-width: 1px;
   font-family: DmSans;
   word-wrap: break-word;
   white-space: pre-line;
+}
+
+.whatsapp-preview .outer-div .visible-screen .msg-container {
+  width: 100%;
+  padding: 12px;
+  max-width: 232px;
+  margin: 24px 0 0 16px;
+  background: #ffffff;
+  border-radius: 8px 24px 24px 8px; /* Adjust border-radius for right-side curve */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional for aesthetics */
+}
+
+.whatsapp-preview .outer-div .visible-screen .btn {
+  width: 100%;
+  padding: 8px;
+  max-width: 232px;
+  margin: 4px 0 0 16px;
+  background: #ffffff;
+  font-size: 14px;
+  color: #038c8b;
+  text-align: center;
+  border-radius: 8px 24px 24px 8px; /* Right-side curve */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional */
 }
 
 
